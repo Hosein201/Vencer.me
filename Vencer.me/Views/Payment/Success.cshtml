@@ -1,0 +1,179 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithOutMeno.cshtml";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-5" style="margin:0 auto; text-align:center;display:none" id="SuccessPayment">
+    <div class="card card-inverse bg-black text-right">
+        <div class="card-block">
+            <blockquote class="card-blockquote">
+                <p class="f-s-14">پرداخت موفقیت آمیز بود در حال  ثبت نام شما و ثبت کسب کار شما هستیم لطفا صبر کنید... </p>
+                <footer class="f-s-12">
+                    سایت vencer میزبان کسب کار های آینده
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+</div>
+<div class="col-md-5" style="margin:0 auto; text-align:center ;display:none" id="CanselPayment">
+    <div class="card card-inverse text-right" style=" background-color: #d88a09 !important">
+        <div class="card-block">
+            <blockquote class="card-blockquote">
+                <p class="f-s-14">پرداخت موفقیت آمیز بود در حال  ثبت نام شما و ثبت کسب کار شما هستیم لطفا صبر کنید... </p>
+                <a style="display:inherit" asp-action="CreateBioBusiness" asp-controller="Business" class="btn btn-success  p-l-30 p-r-30 f-w-400">‍بازگشت به صفحه قبل</a>
+            </blockquote>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var refId = "";
+    var href = window.location.href.split('&')[1].split('=')[1];
+    if (href == "NOK") {
+        $('#CanselPayment').show();
+        $('#SuccessPayment').hide();
+        gritterNotification('error', 'موفق', 'عملیات با موفقیت انجام نشد');
+    }
+    else {
+        $('#CanselPayment').hide();
+        $('#SuccessPayment').show();
+        $.ajax({
+            url: '/api/ApiPayment/VerifyPayment',
+            type: 'Get',
+            success: function (response) {
+                console.log(response);
+                refId = response.data;
+                if (response.isSuccess) {
+                    ;
+                    $.ajax({
+                        url: '/api/ApiPayment/GetCreateUserAndSetBusinessAndSetPayment',
+                        type: 'Get',
+                        success: function (response) {
+                            console.log(response);
+                            if (response.isSuccess) {
+                                regsiterUser(response.data);
+                            }
+                        }
+                    });
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                }
+            }
+        });
+    }
+
+    function regsiterUser(data) {
+        $.ajax({
+            url: '/api/ApiAccount/Regsiter',
+            type: 'Post',
+            data: {
+                Mobile: data.mobile,
+                UserName: data.userName,
+                password: data.password,
+                passwordConfirmed: data.passwordConfirmed,
+                Email: data.email
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    createPayment(data);
+                }
+                else {
+                    disabledBtn('btnRegsiterForm', false)
+                    gritterNotification('error', 'خطا', response.message);
+
+                }
+            },
+            error: function (xhr) {
+                disabledBtn('btnRegsiterForm', false)
+                console.log(xhr);
+                ;
+                gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+
+            }
+        });
+    }
+
+    function createPayment(data) {
+        ;
+        $.ajax({
+            url: '/api/ApiPayment/CreatePayment',
+            type: 'Post',
+            headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+            data: {
+                Refid: refId,
+                Amount: data.amount,
+                Authority: data.authority
+            },
+            success: function (response) {
+                ;
+                console.log(response);
+                if (response.isSuccess) {
+                    createBio(data);
+                }
+                else {
+                    gritterNotification('error', 'خطا', response.message);
+
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                ;
+                gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+
+            }
+        });
+
+    }
+
+    function createBio(createBio) {
+        $.ajax({
+            url: '/api/ApiBusiness/CreateBusiness',
+            headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+            type: 'Post',
+            data: {
+                BusinessUrl: createBio.businessUrl,
+                NameBusiness: createBio.nameBusiness,
+                TypeBusines: createBio.typeBusines,
+                BusinessManeger: createBio.businessManeger,
+                Description: createBio.description,
+                Email: createBio.email,
+                Address: createBio.address,
+                Clock: createBio.clock,
+                PathVideo: createBio.pathVideo,
+                Mobile: createBio.mobile,
+                HomeNumber: createBio.homeNumber,
+                FaxNumber: createBio.faxNumber,
+                WhatsApp: createBio.whatsApp,
+                Telegram: createBio.telegram,
+                Linkedin: createBio.linkedin,
+                Youtube: createBio.youtube,
+                Instagram: createBio.instagram,
+                FaceBook: createBio.faceBook,
+                Aparat: createBio.aparat,
+                SitePersonal: createBio.sitePersonal,
+                PathLogoMini: createBio.pathLogoMini,
+                PathLogoMax: createBio.pathLogoMax,
+                PathLicense: createBio.pathLicense
+            },
+            success: function (response) {
+                ;
+                console.log(response);
+                if (response.isSuccess) {
+                    window.location.href = "/home/Index"
+                    gritterNotification('success', 'موفق', 'تبریک با موفقیت عضو شدید');
+                }
+                else {
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                ;
+                gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+            }
+        });
+    }
+</script>

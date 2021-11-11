@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>گزارش تراکنش های کاربران</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <div id="gridReportPaymentsUsers" class="k-rtl"></div>
+    </div>
+    </div>
+    </div>
+</div>
+<script src="~/Kendo/kendo.aspnetmvc.min.js"></script>
+<script>
+    $('#gridReportPaymentsUsers').kendoGrid({
+        dataSource: {
+            type: (function () {
+                if (kendo.data.transports["aspnetmvc-ajax"]) {
+                    return "aspnetmvc-ajax"
+                } else {
+                    throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                }
+            }),
+            transport: {
+                read: {
+                    url: "/api/ApiPayment/GetAllPayment",
+                    headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                }
+            },
+            pageSize: 20,
+            serverPage: true,
+            schema: {
+                data: "data",
+                total:"total"
+            },
+            serverFiltering: true,
+            serverSorting: true,
+            "filter":[]
+        },
+        height: 550,
+        groupable: true,
+        sortable: true,
+        pageable: {
+            pageSizes: true,
+            buttonCount: 5
+        },
+        columns: [{
+            field: "Row",
+            title: " ردیف",
+            width: 50
+        }, {
+                field: "userName",
+            title: "نام کاربری",
+            width: 150
+        }, {
+                field: "mobile",
+            title: " موبایل",
+            width: 150
+        }, {
+            field: "amount",
+            title: " مبلغ",
+            width: 150
+        }, {
+            field: "description",
+            title: "توضیحات",
+            width: 150
+            }, {
+                template: "#: templateFunction(data.registerDate ) # ",
+            field: "registerDate",
+            title: "تاریخ واریز",
+            width: 150
+        }, {
+            field: "isComplete",
+                title: "تکمیل پرداخت",
+                template: '#if (isComplete) {# <div>بله</div> #} else {#  <div>خیر</div> #}#',
+
+            width: 150
+        },{
+                field: "increase",
+                title: "افزایش یا کاهش",
+                template: '#if (increase) {# <div>افزایش</div> #} else {#  <div>کاهش</div> #}#',
+
+            width: 150
+        }, {
+            field: "refID",
+            title: "کد رهگیری",
+            width: 150
+            }, {
+                field: "transactionBetweenUser",
+                title: "تراکنش بین کاربران",
+                template: '#if (transactionBetweenUser) {# <div>بله</div> #} else {#  <div>خیر</div> #}#',
+
+            width: 150
+            }],
+        dataBinding: function (a) {
+            var row = 0;
+            a.items.forEach(function (value) {
+                row++;
+                value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row
+            })
+        }
+    });
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return  time +' '+ data
+    }
+</script>

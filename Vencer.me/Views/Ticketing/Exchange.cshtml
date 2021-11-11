@@ -1,0 +1,246 @@
+﻿@using WebFramework.UserIdentityExtension
+@model CreateSupportExchangesDto
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-0">
+        <h4>درخواست واریز به حساب</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <form id="formExchange" class="col-md-12" style="margin:0 auto; text-align:center;">
+            <div class="col-lg-6 mb-4">
+                <div class="form-group">
+                    <label asp-for="AmountOfExchange" class="text-label"></label>
+                    <input asp-for="AmountOfExchange" class="form-control" placeholder="مبلغ مورد نظر جهت واریز را وارد کنید" />
+                    <span asp-validation-for="AmountOfExchange" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="form-group">
+                    <label asp-for="AccountNumberOfBank" class="text-label"></label>
+                    <input asp-for="AccountNumberOfBank"   class="form-control" placeholder="شماره کارت  جهت واریز را وارد کنید" />
+                    <span asp-validation-for="AccountNumberOfBank" class="text-danger"></span>
+                 
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+            <div class="form-group">
+            <label asp-for="Description" class="text-label"></label>
+                </div>
+                </div>
+            <div class="col-lg-6 mb-4 ticket-comment-form">
+                <div class="form-group">
+                    <textarea asp-for="Description" placeholder="توضیحات" cols="30" rows="5" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                    
+                    <div>
+                        <img id="imgfileupdoad" src="~/placeholderImage.jpg" style="width:50px" />
+                    </div>
+                    <input onchange="funFileupdoad()" type="file" name="fileupdoad-2" class="d-none" id="fileupdoad">
+                    <label class="p-4 mt-4 text-center d-block" for="fileupdoad">
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        <span class="text-primary d-inline">افزودن کارت ملی</span> یا فایل خود را
+                        اینجا رها کنید
+                    </label>
+                    <div>
+                        <img id="imgfileupdoad2" src="~/placeholderImage.jpg" style="width:50px" />
+                    </div>
+                    <input onchange="funFileupdoad2()" type="file" name="fileupdoad-2" class="d-none" id="fileupdoad2">
+                    <label class="p-4 mt-4 text-center d-block" for="fileupdoad2">
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        <span class="text-primary d-inline">افزودن کارت بانکی</span> یا فایل خود را
+                        اینجا رها کنید
+                    </label>
+         
+                    <img id="imgfileupdoad3" src="~/placeholderImage.jpg" style="width:50px" />
+                    <img width="50%" src="~/photo_2020-08-05_10-02-02.jpg" />
+                    <p>برای شناسایی عکسی مانند این عکس برای ما بفرستید</p>
+                    <input onchange="funFileupdoad3()" type="file" name="fileupdoad-2" class="d-none" id="fileupdoad3">
+                    <label class="p-4 mt-4 text-center d-block" for="fileupdoad3">
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                        <span class="text-primary d-inline">افزودن مدرک شناسایی </span> یا فایل خود را
+                        اینجا رها کنید
+                    </label>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-end w-100">
+                <button type="button" id="btnFormExchange" class="btn btn-primary">ارسال</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+<script>
+    var token = 'Bearer '+ getCookie('Bearer');
+    function funFileupdoad() {
+        // Form Data
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("fileupdoad");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی انتخاب نشده است');
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+
+
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                    setAttr('id', 'imgfileupdoad', 'src', result.data);
+                    $('#imgfileupdoad').addClass('setImg');
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+    function funFileupdoad2() {
+        // Form Data
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("fileupdoad2");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی انتخاب نشده است');
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                    setAttr('id', 'imgfileupdoad2', 'src', result.data);
+                    $('#imgfileupdoad2').addClass('setImg');
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+    function funFileupdoad3() {
+        // Form Data
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("fileupdoad3");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی انتخاب نشده است');
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+
+
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                    setAttr('id', 'imgfileupdoad3', 'src', result.data);
+                    $('#imgfileupdoad3').addClass('setImg');
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+    function functionPath() {
+        var data = []
+        data.push({ Name: 'fileupdoad', Path: getValueAttr('id', 'imgfileupdoad', 'src') });
+        data.push({ Name: 'fileupdoad2', Path: getValueAttr('id', 'imgfileupdoad2', 'src') });
+        data.push({ Name: 'fileupdoad3', Path: getValueAttr('id', 'imgfileupdoad3', 'src') });
+        return data;
+    }
+    $('#btnFormExchange').click(function () {
+        debugger;
+        if ($('#imgfileupdoad').hasClass('setImg') == false) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای کارت ملی ارسال نشده است');
+            return;
+        }
+        if ($('#imgfileupdoad2').hasClass('setImg') == false) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای کارت بانکی ارسال نشده است');
+            return;
+        }
+        if ($('#imgfileupdoad3').hasClass('setImg') == false) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای مدارک ارسال نشده است');
+            return;
+        }
+        var formExchange = $('#formExchange').valid();
+        if (formExchange) {
+            disabledBtn('btnFormExchange', true)
+                ;
+            $.ajax({
+                url: '/api/ApiTicketing/CreateSupportExchanges',
+                type: 'Post',
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                data: {
+                    AmountOfExchange: $('#AmountOfExchange').val(),
+                    Description: $('#Description').val(),
+                    AccountNumberOfBank: $('#AccountNumberOfBank').val(),
+                    FilePath:JSON.stringify(functionPath()),
+                    State:'0'
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', response.message);
+                    }
+                    else {
+                        disabledBtn('btnFormExchange', false)
+                        gritterNotification('error', 'خطا', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    disabledBtn('btnFormExchange', false)
+                    console.log(xhr);
+                    ;
+                    gritterNotification('error', xhr.responseJSON.Message);
+                }
+            });
+        }
+        else {
+            disabledBtn('btnFormExchange', false)
+            $(".field-validation-error").show();
+        };
+    });
+
+</script>

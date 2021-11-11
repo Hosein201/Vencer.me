@@ -1,0 +1,404 @@
+﻿@model CreateVencoinDto
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col p-0">
+        <h4>خرید ارز دیجیتالی</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body p-0 card-shadow-2">
+                <ul id="webticker-dark-icons" class="gain-loose-ticker">
+                    <li data-update="item1">
+                        <h6><span class="text-primary pr-2">ارزهای رمز نگاری شده</span> 2478</h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6><span class="text-primary pr-2">بازارها</span> 7481</h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6>
+                            <span class="text-primary pr-2">سرمایه گذاری در بازار</span> 424,578,225,715
+                            تومان
+                        </h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6>
+                            <span class="text-primary pr-2">ارزش در 24 ساعت گذشته</span> 26,358,917,281
+                            تومان
+                        </h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6><span class="text-primary pr-2">سود بیت کویین : </span> 45.81%</h6>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card forms-card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">فروش ارز دیجیتال</h4>
+                <div class="basic-form">
+                    <form id="formSale">
+                        <div class="form-group">
+                            <label asp-for="Total" class="text-label"></label>
+                            <input asp-for="Total" id="totalSale" type="number" class="form-control" placeholder="تعداد فروش دلخواه خود را وارد کنید">
+                            <span asp-validation-for="Total" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="text-label"></label>
+                            <input asp-for="Price" id="priceSale" type="number" class="form-control" placeholder="مبلغ  فروش دلخواه خود را وارد کنید">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-label">شرایط فروش</label>
+                            <input style="margin-right: 10px" id="saleCondition" class="form-control" placeholder="تعداد فروش دلخواه خود را وارد کنید">
+                        </div>
+                        <input id="saleConditionValue" style="display: none">
+                        <button type="button" id="btnformSale" class="btn btn-primary btn-form mr-2">تایید</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card forms-card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">خرید ارز دیجیتال</h4>
+                <div class="basic-form">
+                    <form id="formBuy">
+                        <div class="form-group">
+                            <label asp-for="Total" class="text-label"></label>
+                            <input asp-for="Total" type="number" id="totalBuy" class="form-control" placeholder="تعداد خرید دلخواه خود را وارد کنید">
+                            <span asp-validation-for="Total" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="text-label"></label>
+                            <input asp-for="Price" type="number" id="priceBuy" class="form-control" placeholder="مبلغ  خرید دلخواه خود را وارد کنید">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-label">شرایط خرید</label>
+                            <input style="margin-right: 10px" id="buyCondition" class="form-control" placeholder="تعداد خرید دلخواه خود را وارد کنید">
+                        </div>
+                        <input id="buyConditionValue" style="display: none">
+                        <button type="button" id="btnformBuy" class="btn btn-primary btn-form mr-2">تایید</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div id="toolbar"></div>
+        <div class="card-body">
+            <h4 id="h4Sale" class="card-title mb-5">جدول فروش و خرید های کاربر </h4>
+            <div class="k-rtl" id="gridBuySaleUser"></div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var userCredit = 0;
+    checkUserCredit();
+    function checkUserCredit() {
+        $.ajax({
+            url: '/api/ApiPayment/GetSumAmountUserWithDiscount',
+            type: 'Get',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    var credit = response.data.numberPayment;
+                    if (credit <= 0) {
+                        gritterNotification('warning', 'هشدار', 'اعتبار ریالی شما جهت خرید کافی نمی باشد ');
+                    } else {
+                        userCredit = credit;
+                    }
+                }
+                else {
+                    disabledBtn('btnformBuy', false);
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                disabledBtn('btnformBuy', false);
+                console.log(xhr);
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+
+    }
+    disabledBtn('btnformSale', false);
+    disabledBtn('btnformBuy', false);
+    var dataSource = [{ 'name': 'Now', 'text': 'اکنون' }, { 'name': 'OneDay', 'text': 'یک روز' }, { 'name': 'TwoDay', 'text': 'دو روز' },
+        { 'name': 'ThreeDay', 'text': 'سه روز' }, { 'name': 'FourDay', 'text': 'چهار روز' }, { 'name': 'FiveDay', 'text': 'پنج روز' },
+        { 'name': 'SixDay', 'text': 'شش روز' }, { 'name': 'SevenDay', 'text': 'هفت روز' }];
+
+    $('#saleCondition').kendoDropDownList({
+        optionLabel: 'انتخاب کنید',
+        dataSource: dataSource,
+        dataTextField: "text",
+        dataValueField: "name",
+        select: function (e) {
+            $('#saleConditionValue').val(e.dataItem.name);
+            e.sender.close();
+        }
+    });
+
+    $('#buyCondition').kendoDropDownList({
+        optionLabel: 'انتخاب کنید',
+        dataSource: dataSource,
+        dataTextField: "text",
+        dataValueField: "name",
+        select: function (e) {
+            $('#buyConditionValue').val(e.dataItem.name);
+            e.sender.close();
+        }
+    });
+
+    $('#btnformSale').click(function () {
+        var formSale = $('#formSale').valid();
+        if (formSale) {
+            disabledBtn('btnformSale', true);
+            $.ajax({
+                url: '/api/ApiVencoin/CreateVencoin',
+                type: 'Post',
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                data: {
+                    Price: $('#priceSale').val(),
+                    Total: $('#totalSale').val(),
+                    Condition: $('#saleConditionValue').val(),
+                    TypeSaleOrBuy: 'Sale'
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', response.message);
+                        $("#gridBuySaleUser").data('kendoGrid').refresh();
+                        $('#formSale').reset();
+                        $('#saleConditionValue').val('');
+                    }
+                    else {
+                        disabledBtn('btnformSale', false);
+                        gritterNotification('error', 'خطا', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    disabledBtn('btnformSale', false);
+                    console.log(xhr);
+                    gritterNotification('error', xhr.responseJSON.Message);
+                }
+            });
+        }
+        else {
+            disabledBtn('btnformSale', false);
+            $(".field-validation-error").show();
+        };
+    });
+
+    $('#btnformBuy').click(function () {
+        var formBuy = $('#formBuy').valid();
+        var priceBuy = parseInt($('#priceBuy').val())*0.06;
+        if (formBuy) {
+            if (parseInt(userCredit) <= priceBuy) {
+                gritterNotification('warning', 'هشدار', 'اعتبار ریالی شما جهت خرید کافی نمی باشد ');
+                window.location.href = '/Payment/AddPayment';
+                return;
+            }
+            disabledBtn('btnformBuy', true);
+            $.ajax({
+                url: '/api/ApiVencoin/CreateVencoin',
+                type: 'Post',
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                data: {
+                    Price: $('#priceBuy').val(),
+                    Total: $('#totalBuy').val(),
+                    Condition: $('#buyConditionValue').val(),
+                    TypeSaleOrBuy: 'Buy'
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', response.message);
+                        $("#gridBuySaleUser").data('kendoGrid').refresh();
+                        $('#formBuy').reset();
+                        $('#buyConditionValue').val('');
+                    }
+                    else {
+                        disabledBtn('btnformBuy', false);
+                        gritterNotification('error', 'خطا', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    disabledBtn('btnformBuy', false);
+                    console.log(xhr);
+                    gritterNotification('error', xhr.responseJSON.Message);
+                }
+            });
+        }
+        else {
+            disabledBtn('btnformBuy', false);
+            $(".field-validation-error").show();
+        };
+    });
+
+    $(function ($) {
+        gridBuySaleUser();
+
+        function gridBuySaleUser(parameters) {
+            $("#gridBuySaleUser").kendoGrid({
+                dataSource: {
+                    type: (function() {
+                        if (kendo.data.transports["aspnetmvc-ajax"]) {
+                            return "aspnetmvc-ajax"
+                        } else {
+                            throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                        }
+                    }),
+                    transport: {
+                        read: {
+                            url: "/api/ApiVencoin/GetAllTransactionUser",
+                            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPage: true,
+                    schema: {
+                        data: "data",
+                        total: "total"
+                    },
+                    serverFiltering: true,
+                    serverSorting: true,
+                    "filter": []
+                },
+                height: 550,
+                groupable: true,
+                sortable: true,
+                pageable: {
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [
+                    { field: "Row", title: "ردیف", width: "90px" },
+                    {
+                        field: "typeSaleOrBuy",
+                        title: "نوع",
+                        width: "120px",
+                        template: "#: typeSaleOrBuyFunction(data.typeSaleOrBuy ) # "
+                    },
+                    {
+                        field: "condition",
+                        title: "شرط",
+                        width: "120px",
+                        template: "#: conditionFunction(data.condition ) # "
+                    },
+                    { field: "price", title: "قیمت", width: "200px" },
+                    { field: "total", title: "تعداد", width: "200px" },
+                    {
+                        field: "registerDate",
+                        title: "تاریخ ثبت",
+                        width: "120px",
+                        template: "#: templateFunction(data.registerDate ) # "
+                    },
+                    {
+                        field: "complete",
+                        title: "تکمیل شده",
+                        width: "120px",
+                        template: '#if (complete) {# <div>تکمیل شده</div> #} else {#  <div>تکمیل نشده</div> #}#'
+
+                    },
+                    {
+                        field: "cancel",
+                        title: "لغوشده",
+                        width: "120px",
+                        template:
+                            '#if (condition >0) {# <div>کنسل نشده</div> <button onclick="btnDone(this)"  name=#:id# class="btn btn-info btn-ft btn-sm btn-rounded">لغو کنید</button> #}else{# <div>کنسل ناپذیر</div>#}#'
+                    },
+                ],
+                dataBinding: function(a) {
+                    var row = 0;
+                    a.items.forEach(function(value) {
+                        row++;
+                        value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row;
+                    })
+                }
+            });
+
+        }
+    });
+
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return time + ' ' + data;
+    }
+
+    function typeSaleOrBuyFunction(value) {
+        switch (value) {
+        case 0:
+            return  'فروش';
+        case 1:
+            return  'خرید';
+        default:
+        }
+    }
+
+    function conditionFunction(value) {
+        switch (value) {
+        case 0:
+            return  'در لحظه ثبت';
+        case 1:
+            return  'یک روز';
+        case 2:
+            return  "دو روز";
+        case 3:
+            return  "سه روز";
+        case 4:
+            return  "چهار روز";
+        case 5:
+            return  "پنج روز";
+        case 6:
+            return  "شش روز";
+        case 7:
+            return  "هفت روز";
+        case 8:
+            return  "صف انتظار";
+        default:
+        }
+    }
+
+    function btnDone(e) {
+        $.ajax({
+            url: '/api/ApiVencoin/CancelTransaction',
+            type: 'Post',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            data: {
+                VencoinId: e.name,
+                Cancel:"true"
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    gritterNotification('success', 'موفق', response.message);
+                    gridBuySaleUser();
+                }
+                else {
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+    }
+</script>

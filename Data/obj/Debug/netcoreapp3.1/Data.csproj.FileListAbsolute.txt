@@ -1,0 +1,15 @@
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Data.deps.json
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.json
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.dev.json
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Data.dll
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Data.pdb
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Common.dll
+E:\githup\Vencerme\Data\bin\Debug\netcoreapp3.1\Common.pdb
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfoInputs.cache
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfo.cs
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.csproj.CoreCompileInputs.cache
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.csproj.CopyComplete
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.dll
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.pdb
+E:\githup\Vencerme\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache

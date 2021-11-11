@@ -1,0 +1,116 @@
+﻿@model Data.Dto.Payment.DiscountDto
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col p-0">
+        <h4>تخصیص اعتبار هدیه</h4>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <form id="discountForm" class="col-md-9" style="margin: 0 auto; text-align: center;">
+
+            <div class="form-group row m-b-10">
+                <label asp-for="Amount" class="col-md-3 text-md-right col-form-label"></label><span class="text-danger">*</span>
+                <div class="col-md-6">
+                    <input asp-for="Amount" type="number" min="1000" placeholder="مبلغ مورد نظر خود را وارد کنید" class="form-control"/>
+                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="Amount"></span>
+                </div>
+            </div>
+            <div class="form-group row m-b-10">
+                <label asp-for="Description" class="col-md-3 text-md-right col-form-label"></label><span class="text-danger">*</span>
+                <div class="col-md-6">
+                    <input asp-for="Description" type="text" placeholder="توضیحات  خود را وارد کنید" class="form-control"/>
+                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="Description"></span>
+                </div>
+            </div>
+            <div class="form-group row m-b-10">
+                <label asp-for="UserId" class="col-md-3 text-md-right col-form-label">نام کاربران فعال<span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <input asp-for="UserId" style="display: unset !important"/>
+                    <input style="display: none" id="valUserId"/>
+                </div>
+            </div>
+            <div class="form-group row m-b-10">
+                <div class="col-md-6 " style="margin: 0 auto;">
+                    <button type="button" id="btnDiscountForm" class="btn btn-primary form-control">تایید</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    </div>
+    </div>
+</div>
+<script>
+
+
+    function disabledBtn(idBtn, bool) {
+        $("#" + idBtn).attr('disabled', bool);
+    };
+    $("#UserId").kendoDropDownList({
+        optionLabel: 'انتخاب کنید',
+        dataTextField: "fullName",
+        dataValueField: "userId",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "/api/ApiUser/GetUsersForTransaction",
+                    headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+
+                }
+            }
+        },
+        select: function (e) {
+            $('#valUserId').val(e.dataItem.userId)
+            e.sender.close();
+        }
+    });
+    disabledBtn('btnDiscountForm', false);
+    $('#btnDiscountForm').click(function () {
+        if ($('#valUserId').val() == "") {
+            gritterNotification('info', 'پیام', 'لطفا نام کاربر مورد نظر را انتخاب کنید.');
+            return;
+        }
+        var discountForm = $('#discountForm').valid();
+        if (discountForm) {
+            disabledBtn('btnDiscountForm', true)
+            $.ajax({
+                url: '/api/ApiPayment/DiscountPayment',
+                type: 'Post',
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                data: {
+                    UserId: $('#valUserId').val(),
+                    Description: $('#Description').val(),
+                    Amount: $('#Amount').val(),
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                    }
+                    else {
+                        disabledBtn('btnDiscountForm', false)
+                        gritterNotification('error', 'خطا', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    disabledBtn('btnDiscountForm', false)
+                    console.log(xhr);
+                    gritterNotification('error', xhr.responseJSON.Message);
+                }
+            });
+        }
+        else {
+            disabledBtn('btnDiscountForm', false)
+            $(".field-validation-error").show();
+        };
+    });
+</script>
+

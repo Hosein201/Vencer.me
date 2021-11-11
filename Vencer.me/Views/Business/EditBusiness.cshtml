@@ -1,0 +1,367 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Data.Dto.Business.EditDetailDto
+<link href="~/assets/plugins/dropify/dist/css/dropify.min.css" rel="stylesheet" />
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>ویرایش کسب و کار</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-5">
+                        <h4 class="card-title card-intro-title">ویرایش اطلاعات</h4>
+                        <button type="button" class="btn btn-ft btn-rounded btn-outline-success" id="viewBusiness" style="display: inline-block;float: left;margin-top: -29px;">مشاهده کسب  و کار</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3">
+                            <div class="nav flex-column nav-tabs nav-tabs-vertical mb-4 mb-xl-0">
+                                <a href="#detailsBusiness‌" data-toggle="pill" class="active show">جزییات کسب و کار</a>
+                                <a href="#imgBusiness‌" data-toggle="pill" class="">گالری  تصاویر و ویدیو  معرفی</a>
+                                <a href="#workHours‌" data-toggle="pill" class="">ساعت کاری</a>
+                                <a href="#logoPaths" data-toggle="pill" class="">لوگو و سند کسب و کار</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9">
+                            <div class="tab-content tab-content-default">
+                                <div id="detailsBusiness‌" class="tab-pane fade active show">
+                                    <div class="basic-form">
+                                        <h3> جزییات کسب و کار</h3>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <form id="formDetailsBusiness">
+                                                    <div class="form-group row">
+                                                        <label asp-for="NameBusiness" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="NameBusiness" class="form-control" placeholder="نام کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="NameBusiness" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="BusinessManeger" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="BusinessManeger" class="form-control" placeholder="نام مدیر کسب کار را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="BusinessManeger" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="TypeBusiness" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="TypeBusiness" class="form-control" placeholder="نوع کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="TypeBusiness" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Email" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="Email" type="email" class="form-control" placeholder="ایمیل خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Description" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <textarea asp-for="Description" class="form-control" placeholder="توضیحات کسب کار خود را وارد کنید"></textarea>
+                                                            </div>
+                                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Address" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="Address" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Mobile" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="Mobile" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="HomeNumber" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="HomeNumber" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="HomeNumber" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="FaxNumber" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="FaxNumber" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="FaxNumber" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="WhatsApp" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="WhatsApp" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="WhatsApp" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Instagram" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="Instagram" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="Instagram" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Youtube" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="Youtube" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="Youtube" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="Aparat" class="col-sm-3 col-form-label text-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-group">
+                                                                <input asp-for="Aparat" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                                            </div>
+                                                            <span asp-validation-for="Aparat" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12 text-right">
+                                                            <button type="button" id="btnFormDetailsBusiness" class="btn btn-primary btn-form">تایید ویرایش اطلاعات</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="imgBusiness‌" class="tab-pane fade">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3 style="display: inline">گالری تصاویر</h3>
+                                            <button type="button" class="btn btn-ft btn-rounded btn-outline-danger" style="display: inline-block; float: left; margin-bottom: 10px;">حذف تمام تصاویر گالری</button>
+                                            <div class="dropify-default">
+                                                <input type="file" class="dropify" data-default-file="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3>ویدیو معرفی</h3>
+                                            <div>
+                                                <div class="h_iframe-aparat_embed_frame">
+                                                    <span style="display: block; padding-top: 57%"></span>
+                                                    <iframe src="https://www.aparat.com/video/video/embed/videohash/LTI1X/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
+                                                    </iframe>
+                                                </div>
+                                                <div class="form-group row" style="margin-top: 25px;">
+                                                    <label class="col-sm-3 col-form-label text-label">مسیر فیلم معرفی</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input id="pathVideo" class="form-control" placeholder="لطفا مسیر ویدیو خود را وارد کنید" />
+                                                        </div>
+                                                        <span id="validatedPathVideo" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="btnPathLicense" class="btn btn-primary btn-form" style="float:left">تایید ویرایش اطلاعات</button>
+                                </div>
+                                <div id="logoPaths" class="tab-pane fade">
+                                <h3>لوگو پس زمینه کسب و کار</h3>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropify-default">
+                                            <input type="file" id="pathLogoMax" class="dropify" data-default-file=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3>لوگو اصلی کسب و کار</h3>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropify-default">
+                                            <input type="file" id="pathLogoMini" class="dropify" data-default-file=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3>سند کسب و کار</h3>
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <div class="dropify-default">
+                                                <input type="file" id="pathLicense" class="dropify" data-default-file=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="btnPathLogoMax" class="btn btn-primary btn-form" style="float:left">تایید ویرایش اطلاعات</button>
+
+                            </div>
+                                <div id="workHours‌" class="tab-pane fade">
+                                    <h3>ساعت کاری</h3>
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <form id="formWorkHours">
+
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>شنبه *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="9.00" type="number" name="input1" id="input1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="6.00" type="number" name="input2" id="input2">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>یک شنبه *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="9.00" type="number" name="input3" id="input3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="6.00" type="number" name="input4" id="input4">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>دوشنبه *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="9.00" type="number" name="input5" id="input5">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="6.00" type="number" name="input6" id="input6">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>سه شنبه *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="9.00" type="number" name="input7" id="input7">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="6.00" type="number" name="input8" id="input8">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>چهار شنبه *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="9.00" type="number" name="input9" id="input9">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="6.00" type="number" name="input10" id="input10">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>پنج شنبه *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="9.00" type="number" name="input11" id="input11">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="6.00" type="number" name="input12" id="input12">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <h4>ناهار *</h4>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="11.00" type="number" name="input13" id="input13">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-sm-3 mb-4">
+                                                        <div class="form-group">
+                                                            <input class="form-control" value="12.00" type="number" name="input14" id="input14">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12 text-right">
+                                                        <button type="button" id="btnFormWorkHours" class="btn btn-primary btn-form">تایید ویرایش اطلاعات</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/plugins/dropify/dist/js/dropify.min.js"></script>
+<script src="~/assets/js/plugins-init/dropify-init.js"></script>
+<script>
+    var urlHeader = '@Html.Raw(ViewBag.urlEdit)';
+
+    $('#viewBusiness').click(function() {
+        var urlPage = window.location.href.split('/')[4];
+        window.location = '/' + urlPage + '';
+    });
+
+</script>

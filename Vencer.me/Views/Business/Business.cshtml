@@ -1,0 +1,402 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBusiness.cshtml";
+}
+<link href="~/css/Business.css" rel="stylesheet" />
+<!-- =======================header ===================== -->
+<div class="row" style="direction: ltr">
+    <div class="col-xl-12">
+        <div class="card button-card">
+            <div class="card-body">
+                <section class="page-title-banner" id="pathLogoMax" style="background-image:url(../../assets/images/profile/cover.jpg);">
+                    <div class="container" style="text-align: left">
+                        <div class="row m-0 align-items-end detail-swap">
+                            <div class="tr-list-wrap">
+                                <div class="tr-list-detail">
+                                    <div class="tr-list-thumb">
+                                        <img src="../../assets/images/profile/cover.jpg" id="pathLogoMini" class="img-responsive" alt="" style="height: 100%" />
+                                    </div>
+                                    <div class="tr-list-info">
+                                        <h4 class="veryfied-list" id="nameBusiness"></h4>
+                                        <p id="address"></p>
+                                    </div>
+                                </div>
+                                <div class="listing-detail_right">
+                                    <div class="listing-detail-item">
+                                        <a href="#" class="btn btn-list"><i class="ti-heart"></i> دنبال کردن </a>
+                                        <a id="settingsBusiness" class="btn btn-list"><i class="icon-settings"></i>ویرایش</a>
+                                    </div>
+                                    <div class="listing-detail-item" style="display: none">
+                                        <div class="share-opt-wrap">
+                                            <button type="button" class="btn btn-list" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="ti-share"></i> Share
+                                            </button>
+                                            <div class="dropdown-menu animated flipInX">
+                                                <a href="#" class="cl-facebook"><i class="lni-facebook"></i></a>
+                                                <a href="#" class="cl-twitter"><i class="lni-twitter"></i></a>
+                                                <a href="#" class="cl-gplus"><i class="lni-google-plus"></i></a>
+                                                <a href="#" class="cl-instagram"><i class="lni-instagram"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- ======================= Tabs ===================== -->
+        <div class="col-xl-12">
+            <div class="card button-card border" >
+                <div class="card-body">
+                    <div class="profile-header-nav p-0 b-b">
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-sm-12">
+                                <div class="tab" role="tabpanel">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation"><a href="#Overview" class="active" role="tab" data-toggle="tab"><i class="ti-user"></i>جزییات کسب وکار</a></li>
+                                        <li role="presentation"><a href="#Photos" role="tab" data-toggle="tab"><i class="ti-gallery"></i>گالری تصاویر</a></li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============== Detail ====================== -->
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="card button-card border">
+                    <div class="card-body">
+                        <div class="tab-content tabs">
+                            <!-- ============ Overview =================== -->
+                            <div role="tabpanel" class="tab-pane fade in show active" id="Overview" style="height: 937px">
+                                <!-- Description -->
+                                <div class="row">
+                                    <div class="tr-single-box">
+                                        <div class="tr-single-body">
+                                            <h4>توضیحات</h4>
+                                            <p id="description"></p>
+                                            <h4>ویدیو معرفی کسب و کار</h4>
+                                            <div class="h_iframe-aparat_embed_frame">
+                                                <span style="display: block; padding-top: 57%"></span>
+                                                <iframe src="https://www.aparat.com/video/video/embed/videohash/LTI1X/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============ Photos =================== -->
+                            <div role="tabpanel" class="tab-pane fade in" id="Photos">
+
+                                <!--  Photos -->
+                                <div class="row">
+                                    <div class="tr-single-box">
+                                        <div class="tr-single-header">
+                                            <h4><i class="ti-thumb-up"></i>عکس های کسب و کار</h4>
+                                        </div>
+                                        <div class="tr-single-body">
+                                            <ul class="gallery-list">
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+                                                <li>
+
+                                                    <img src="../../assets/images/profile/cover.jpg" class="img-responsive" alt="" style="height: 300px">
+
+                                                </li>
+
+                                            </ul>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="card button-card border">
+                    <div class="card-body">
+                        <!-- Sidebar Start -->
+                        <!-- Author Name -->
+                        <div class="author-box-wrapper mb-4">
+                            <div class="author-box-body">
+                                <div class="author-thumb">
+                                    <img id="pathLogoMini2" src="../../assets/images/profile/cover.jpg" alt="">
+                                </div>
+                                <div class="author-caption">
+                                    <h4 class="author-name" id="nameBusiness2"><a href="#">asdasd</a></h4>
+                                    <div class="author-location" id="businessManeger">asdasdas</div>
+                                    <div class="author-location" id="address2"><i class="ti-location-pin"></i></div>
+                                </div>
+                            </div>
+                            <div class="author-box-footer" style="display: none">
+                                <ul>
+                                    <li><span>Followers</span>2015</li>
+                                    <li><span>Following</span>2015</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card button-card border">
+                    <div class="card-body ">
+                        <!-- Business Info -->
+                        <div class="tr-single-box">
+                            <div class="tr-single-header">
+                                <h4><i class="ti-direction"></i>مشخصات کسب و کار</h4>
+                            </div>
+
+                            <div class="tr-single-body">
+                                <ul class="extra-service">
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                                <h6>تلفن همراه</h6>
+                                                <div class="icon-box-text" id="mobile">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                           <h6>تلفن ثابت</h6>
+                                                <div class="icon-box-text" id="homeNumber">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>  
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                            <h6>تلفن فکس</h6>
+                                                <div class="icon-box-text" id="faxNumber">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                          <h6>ایمیل</h6>
+
+                                                <div class="icon-box-text" id="email">
+                                                  
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                            <h6>آپارات</h6>
+
+                                                <div class="icon-box-text" id="aparat">
+                                            
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li> 
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                            <h6>اینستاگرام</h6>
+
+                                                <div class="icon-box-text" id="instagram">
+                                                   
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li> 
+                                    <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                           <h6>یوتیوب</h6>
+
+                                                <div class="icon-box-text" id="youtube">
+                                                
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>  <li>
+                                        <div class="icon-box-icon-block">
+                                            <a href="#">
+                                                
+                                                <h6>واتساپ</h6>
+
+                                                <div class="icon-box-text" id="whatsApp">
+                                                   
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card button-card border">
+                    <div class="card-body">
+                        <!-- Listing Hour Detail -->
+                        <div class="tr-single-box">
+                            <div class="tr-single-header listing-hours-header open">
+                                <h4>ساعت کاری </h4>
+                            </div>
+                            <div class="tr-single-body">
+                                <ul class="listing-hour-day">
+                                    <li>
+                                        <span class="listing-hour-day">شنبه</span>
+                                        <span class="listing-hour-time" id="input1"></span>
+                                    </li>
+                                    <li>
+                                        <span class="listing-hour-day">یک شنبه</span>
+                                        <span class="listing-hour-time" id="input2"></span>
+                                    </li>
+                                    <li>
+                                        <span class="listing-hour-day">دوشنبه</span>
+                                        <span class="listing-hour-time" id="input3"></span>
+                                    </li>
+                                    <li>
+                                        <span class="listing-hour-day">سه شنبه</span>
+                                        <span class="listing-hour-time" id="input4"></span>
+                                    </li>
+                                    <li>
+                                        <span class="listing-hour-day">چهار شنبه</span>
+                                        <span class="listing-hour-time" id="input5"></span>
+                                    </li>
+                                    <li>
+                                        <span class="listing-hour-day">پنج شنبه</span>
+                                        <span class="listing-hour-time" id="input6"></span>
+                                    </li>
+                                    <li>
+                                        <span class="listing-hour-day">جمعه</span>
+                                        <span class="listing-hour-time" id="input7"></span>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var urlHeader = '@Html.Raw(ViewBag.url)';
+    debugger;
+    if (urlHeader === 'Swagger' || urlHeader === "swagger") {
+        window.location.href = '/swagger/index.html';
+
+    } else if (urlHeader == '' || urlHeader==null) {
+        window.location.href = '/home/NotFoundPage';
+    }
+    $.ajax({
+        url: 'api/ApiBusiness/GetBusiness?urlBusiness=' + urlHeader+'',
+        type: 'GET',
+        success: function (response) {
+            if (response.isSuccess) {
+                var data = response.data;
+                if (data == null) {
+                    window.location.href = '/home/NotFoundPage';
+                }
+                $('#nameBusiness').html(data.nameBusiness);
+                $('#nameBusiness2').html(data.nameBusiness);
+                $('#address').html(data.address);
+                $('#address2').html(data.address);
+                $('#description').html(data.description);
+                $('#businessManeger').html(data.businessManeger);
+                $('#mobile').html(data.mobile);
+                $('#homeNumber').html(data.homeNumber);
+                $('#faxNumber').html(data.faxNumber);
+                $('#email').html(data.email);
+                $('#aparat').html(data.aparat);
+                $('#instagram').html(data.instagram);
+                $('#youtube').html(data.youtube);
+                $('#whatsApp').html(data.whatsApp);
+                var clock = JSON.parse(data.clock);
+                $('#input1').html(clock[0].input1 + '_' + clock[1].input2);
+                $('#input2').html(clock[2].input3 + '_' + clock[3].input4);
+                $('#input3').html(clock[4].input5 + '_' + clock[5].input6);
+                $('#input4').html(clock[6].input7 + '_' + clock[7].input8);
+                $('#input5').html(clock[8].input9 + '_' + clock[9].input10);
+                $('#input6').html(clock[10].input11 + '_' + clock[11].input12);
+                $('#input7').html(clock[12].input13 + '_' + clock[13].input14);
+                $('#pathLogoMax').css('background-image', 'url(/imagesUsers/' + data.pathLogoMax + ')');
+                $('#pathLogoMini').attr('src', '/imagesUsers/' + data.pathLogoMini)
+                $('#pathLogoMini2').attr('src', '/imagesUsers/' + data.pathLogoMini)
+            }
+        },
+        error: function (xhr) {
+            window.location.href = '/home/NotFoundPage';
+        }
+    });
+    $('#settingsBusiness').click(function () {
+        var urlPage = window.location.href.split('/')[3];
+        window.location = '/EditBusiness/' + urlPage + '';
+    });
+</script>

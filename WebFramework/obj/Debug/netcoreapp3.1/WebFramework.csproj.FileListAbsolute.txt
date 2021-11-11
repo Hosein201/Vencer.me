@@ -1,0 +1,14 @@
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\WebFramework.deps.json
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\WebFramework.dll
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\WebFramework.pdb
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\Common.dll
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\Data.dll
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\Data.pdb
+E:\githup\Vencerme\WebFramework\bin\Debug\netcoreapp3.1\Common.pdb
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.csprojAssemblyReference.cache
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.AssemblyInfoInputs.cache
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.AssemblyInfo.cs
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.csproj.CoreCompileInputs.cache
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.csproj.CopyComplete
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.dll
+E:\githup\Vencerme\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.pdb

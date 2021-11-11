@@ -1,0 +1,302 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>درخواست های واریز کاربران</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <div id="SupportExchanges" class="k-rtl"></div>
+        <hr style="margin-top: 3rem;"/>
+
+        <h4 style="text-align: right; margin-bottom: 18px; margin-top: 18px;">درخواست های تایید شده کاربران</h4>
+
+        <div id="SupportExchangesDone" class="k-rtl"></div>
+    </div>
+    </div>
+    </div>
+</div>
+<script src="~/Kendo/kendo.aspnetmvc.min.js"></script>
+<script>
+    $(function($) {
+        SupportExchanges();
+
+        function SupportExchanges() {
+            $('#SupportExchanges').kendoGrid({
+                dataSource: {
+                    type: (function() {
+                        if (kendo.data.transports["aspnetmvc-ajax"]) {
+                            return "aspnetmvc-ajax"
+                        } else {
+                            throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                        }
+                    }),
+                    transport: {
+                        read: {
+                            url: "/api/ApiTicketing/GetSupportExchanges",
+                            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPage: true,
+                    schema: {
+                        data: "data.data",
+                        total: "data.total"
+                    },
+                    serverFiltering: true,
+                    serverSorting: true,
+                    "filter": []
+                },
+                height: 550,
+                groupable: true,
+                sortable: true,
+                pageable: {
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [
+                    {
+                        field: "Row",
+                        title: " ردیف",
+                        width: 50
+                    }, {
+                        field: "numberOfTicket",
+                        title: " شماره تیکت",
+                        width: 100
+                    }, {
+                        field: "amountOfExchange",
+                        title: " مبلغ",
+                        width: 150
+                    }, {
+                        field: "accountNumberOfBank",
+                        title: "شماره کارت",
+                        width: 150
+                    }, {
+                        field: "description",
+                        title: "توضیحات",
+                        width: 150
+                    }, {
+                        template: "#: templateFunction(data.registerDate ) #",
+                        field: "registerDate",
+                        title: "تاریخ واریز",
+                        width: 150
+                    }, {
+                        template: "#: templateFunctionState(data.state ) # ",
+                        field: "state",
+                        title: "وضعیت",
+                        width: 150
+                    }, {
+                        field: "hasFile",
+                        title: "فایل",
+                        width: 150
+                    }, {
+                        template:
+                            '<div class="social-icon"><a download type="button" style="margin-left:3px;" class="btn  btn-success "  href=#: templateFunctionDownloadFile(data.filePath )[0] #>ملی</a>' +
+                                '<a download  type="button" style="margin-bottom:2px;" class="btn  btn-success " href=#: templateFunctionDownloadFile(data.filePath )[1] #>بانکی</a>' +
+                                '<a download type="button" class="btn  btn-success " href=#: templateFunctionDownloadFile(data.filePath )[2] #>مدرک</a>  </div>',
+                        field: "filePath",
+                        title: "دانلود فایل",
+                        width: 150
+                    }, {
+                        field: "userId",
+                        title: "ایدی کاربر",
+                        width: 150,
+                        hidden: true
+                    }, {
+                        field: "id",
+                        title: "ایدی جدول",
+                        width: 150,
+                        hidden: true
+                    }, {
+                        field: "",
+                        title: "عملیات",
+                        width: 150,
+                        template:
+                            '<button onclick="btnReject(this)" name=#:data.userId# idExchange=#: data.id # class="btn btn-danger btn-ft btn-rounded btn-sm" style="margin-bottom: 5px;">رد درخواست</button>' +
+                                '<button onclick="btnDone(this)"  name=#:data.userId# idExchange=#: data.id #  class="btn btn-rounded btn-success btn-ft  btn-sm">تایید نهایی</button>'
+
+
+                    }
+                ],
+                dataBinding: function(a) {
+                    var row = 0;
+                    a.items.forEach(function(value) {
+                        row++;
+                        value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row
+                    })
+                }
+            });
+        }
+
+        $('#SupportExchangesDone').kendoGrid({
+            dataSource: {
+                type: (function() {
+                    if (kendo.data.transports["aspnetmvc-ajax"]) {
+                        return "aspnetmvc-ajax"
+                    } else {
+                        throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                    }
+                }),
+                transport: {
+                    read: {
+                        url: "/api/ApiTicketing/GetSupportExchangesByState?state=Done",
+                        headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                    }
+                },
+                pageSize: 20,
+                serverPage: true,
+                schema: {
+                    data: "data.data",
+                    total: "data.total"
+                },
+                serverFiltering: true,
+                serverSorting: true,
+                "filter": []
+            },
+            height: 550,
+            groupable: true,
+            sortable: true,
+            pageable: {
+                pageSizes: true,
+                buttonCount: 5
+            },
+            columns: [
+                {
+                    field: "Row",
+                    title: " ردیف",
+                    width: 50
+                }, {
+                    field: "numberOfTicket",
+                    title: " شماره تیکت",
+                    width: 100
+                }, {
+                    field: "amountOfExchange",
+                    title: " مبلغ",
+                    width: 150
+                }, {
+                    field: "accountNumberOfBank",
+                    title: "شماره کارت",
+                    width: 150
+                }, {
+                    field: "description",
+                    title: "توضیحات",
+                    width: 150
+                }, {
+                    template: "#: templateFunction(data.registerDate ) #",
+                    field: "registerDate",
+                    title: "تاریخ واریز",
+                    width: 150
+                }, {
+                    template: "#: templateFunctionState(data.state ) # ",
+                    field: "state",
+                    title: "وضعیت",
+                    width: 150
+                }
+            ],
+            dataBinding: function(a) {
+                var row = 0;
+                a.items.forEach(function(value) {
+                    row++;
+                    value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row
+                })
+            }
+        });
+    });
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return time + ' ' + data
+    }
+
+    function templateFunctionState(value) {
+        switch (parseInt(value)) {
+            case 0:
+                return "درحال بررسی فایل";
+            case 1:
+                return "درحال انجام";
+            case 2:
+                return "رد شده توسط کاربر";
+            case 3:
+                return "رد شده توسط مدیر";
+            case 4:
+                return "تایید نهایی";
+            default:
+                return "نا مشخص";
+        }
+    }
+
+    function templateFunctionDownloadFile(value) {
+        var paths = [];
+        var list = JSON.parse(value);
+        $.each(list,
+            function (index, data) {
+                paths.push(data.Path);
+            });
+        return paths;
+    }
+
+    function btnReject(e) {
+        debugger;
+        $.ajax({
+            url: '/api/ApiTicketing/UpdateSupportExchanges',
+            type: 'Post',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            data: {
+                State: 'CancelByAdmin',
+                IdExchange: $(e).attr('idExchange'),
+                UserId: e.name,
+                Description: 'مدارک ناقص است'
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    gritterNotification('success', 'موفق', response.message);
+                    SupportExchanges();
+                } else {
+                    disabledBtn('btnFormExchange', false)
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                disabledBtn('btnFormExchange', false)
+                console.log(xhr);;
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+    }
+
+    function btnDone(e) {
+        debugger;
+        $.ajax({
+            url: '/api/ApiTicketing/UpdateSupportExchanges',
+            type: 'Post',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            data: {
+                State: 'Done',
+                IdExchange: $(e).attr('idExchange'),
+                UserId: e.name,
+                Description: 'تایید جهت واریز'
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    gritterNotification('success', 'موفق', response.message);
+                    SupportExchanges();
+                } else {
+                    disabledBtn('btnFormExchange', false)
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                disabledBtn('btnFormExchange', false)
+                console.log(xhr);;
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+    }
+</script>

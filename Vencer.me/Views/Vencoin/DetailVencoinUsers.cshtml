@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-0">
+        <h4>موجودی ارز دیجیتالی کاربران</h4>
+    </div>
+</div>
+<div class="row pb-5 pb-sm-0">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="k-rtl " id="gridVencoinsUser"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Kendo/kendo.aspnetmvc.min.js"></script>
+<script>
+    $(function ($) {
+
+        $("#gridVencoinsUser").kendoGrid({
+            dataSource: {
+                type: (function () {
+                    if (kendo.data.transports["aspnetmvc-ajax"]) {
+                        return "aspnetmvc-ajax"
+                    } else {
+                        throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                    }
+                }),
+                transport: {
+                    read: {
+                        url: "/api/ApiUser/GetUsers",
+                        headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                    }
+                },
+                pageSize: 20,
+                serverPage: true,
+                schema: {
+                    data: "data",
+                    total: "total"
+                },
+                serverFiltering: true,
+                serverSorting: true,
+            },
+            height: 600,
+            sortable: true,
+            pageable: true,
+            detailInit: detailInit,
+            dataBound: function () {
+                this.expandRow(this.tbody.find("tr.k-master-row").first());
+            },
+            columns: [
+                {
+                    field: "userName",
+                    title: "نام کاربری",
+                    width: "110px"
+                },
+                {
+                    field: "fullName",
+                    title: "نام و خانوادگی",
+                    width: "110px"
+                },
+                {
+                    field: "mobile",
+                    width: "110px",
+                    title: "موبایل",
+                }
+            ]
+        });
+        function detailInit(e) {
+            //var filters = [{ field: 'userId', operator: 'eq', value: 'aas' }];
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                type: (function () {
+                    if (kendo.data.transports["aspnetmvc-ajax"]) {
+                        return "aspnetmvc-ajax"
+                    } else {
+                        throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                    }
+                }),
+                transport: {
+                    read: {
+                        url: "/api/ApiVencoin/GetVolumeVencoinOfUsers?userId=" + e.data.userId+"",
+                        headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                    }
+                },
+                schema: {
+                    data: "data",
+                    total: "total", 
+                    id: 'Id',
+                    model: {
+                    fields: [
+                        { field: 'Id', type: 'number' },
+                        { field: 'userId', type: 'string' },
+                    ]}
+                },
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                pageSize: 10,
+          
+            },
+            scrollable: false,
+            sortable: true,
+            pageable: true,
+            columns: [
+
+                { field: "total", width: "110px" , title: "حجم" },
+                { field: "price", width: "110px", title: "قیمت" },
+    
+            ]
+        });
+        }
+    })
+</script>
+

@@ -1,0 +1,299 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<script src="~/assets/js/dashboard/dashboard-2.js"></script>
+
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>داشبورد اصلی</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="crypto-ticker card">
+            <div class="ticker-overview">بررسی اجمالی</div>
+            <ul id="webticker-dark-icons">
+                <li data-update="item1">
+                    <i class="fa fa-level-down"></i> <i class="cc BTC"></i> BTC
+                    <span class="coin-value">
+                        11,230
+                    </span>
+                    <span class="text-danger coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item2">
+                    <i class="fa fa-level-up"></i> <i class="cc ETH"></i> ETH <span class="coin-value">
+                        1,270
+                    </span><span class="text-success coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item3">
+                    <i class="fa fa-level-down"></i> <i class="cc GAME"></i> GAME
+                    <span class="coin-value">
+                        11,032
+                    </span><span class="text-danger coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item4">
+                    <i class="fa fa-level-up"></i> <i class="cc LBC"></i> LBC <span class="coin-value">
+                        530
+                    </span><span class="text-success coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item5">
+                    <i class="fa fa-level-down"></i> <i class="cc NEO"></i> NEO
+                    <span class="coin-value">
+                        161,010
+                    </span><span class="text-danger coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item6">
+                    <i class="fa fa-level-up"></i> <i class="cc STEEM"></i> STE
+                    <span class="coin-value">
+                        551
+                    </span><span class="text-success coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item7">
+                    <i class="fa fa-level-up"></i> <i class="cc LTC"></i> LIT <span class="coin-value">
+                        17,700
+                    </span><span class="text-success coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item8">
+                    <i class="fa fa-level-down"></i> <i class="cc NOTE"></i> NOTE
+                    <span class="coin-value">
+                        13,300
+                    </span><span class="text-danger coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item9">
+                    <i class="fa fa-level-up"></i> <i class="cc MINT"></i> MINT
+                    <span class="coin-value">
+                        880
+                    </span><span class="text-success coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item10">
+                    <i class="fa fa-level-down"></i> <i class="cc IOTA"></i> IOT
+                    <span class="coin-value">
+                        2,555
+                    </span><span class="text-danger coin-status"> - 1.81% </span>
+                </li>
+                <li data-update="item11">
+                    <i class="fa fa-level-up"></i> <i class="cc DASH"></i> DAS
+                    <span class="coin-value">
+                        76,922
+                    </span><span class="text-success coin-status"> - 1.81% </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="display:none">
+    <div class="col-xl-3 col-sm-6">
+        <div class="card">
+            <div class="card-body stat-widget-four">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="cc BTC" title="BTC"></i>
+                    </span>
+                    <div class="media-body">
+                        <h6 class="mb-3">تاریخ عضویت </h6>
+                    </div>
+                    <div class="media-body text-right">
+                        <h5 class="text-pale-sky" id="registerDate"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-warning">
+                <div id="crypto-btc-card"></div>
+                <p class="text-white text-right mr-4 ">با ما باشید...</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card">
+            <div class="card-body stat-widget-four">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="cc ETH" title="BTC"></i>
+                    </span>
+                    <div class="media-body">
+                        <h6 class="mb-3">کسب و کار </h6>
+                    </div>
+                    <div class="media-body text-right">
+                        <h5 class="text-pale-sky" id="businessCount"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-success">
+                <div id="crypto-eth-card"></div>
+                <p class="text-white text-right mr-4 ">با ما باشید...</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card">
+            <div class="card-body stat-widget-four">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="cc XRP" title="BTC"></i>
+                    </span>
+                    <div class="media-body">
+                        <h6 class="mb-3">‍اعتبار مالی</h6>
+                    </div>
+                    <div class="media-body text-right">
+                        <h5 class="text-pale-sky" id="muchPayment"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary">
+                <div id="crypto-rpl-card"></div>
+                <p class="text-white text-right mr-4 ">با ما باشید...</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card">
+            <div class="card-body stat-widget-four">
+                <div class="media">
+                    <div class="mr-3">
+                        <i class="cc LTC" title="BTC"></i>
+                    </div>
+                    <div class="media-body">
+                        <h6 class="mb-3">‍اعتبار ارزی </h6>
+                    </div>
+                    <div class="media-body text-right">
+                        <h5 class="text-pale-sky" id="muchCypto">صفر</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-info">
+                <div id="crypto-ltc-card"></div>
+                <p class="text-white text-right mr-4 ">با ما باشید...</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card button-card">
+            <div class="card-body">
+                <div id="tgju-data"></div>
+                <script>
+                    var tgju_params =
+                    {
+                        type: "simple",
+                        items: ["geram18", "geram24", "sekeb", "palladium", "silver", "oil", "bourse"],
+                        columns: ["diff", "time"],
+                        placeholder: "tgju-data",
+                        token: "webservice"
+                    };
+                </script>
+                <script src="https://api.tgju.online/v1/widget"></script>
+                <style></style>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pb-5 pb-sm-0">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-5">نمودار حجم خرید و فروش (Vencoin) در ماه جاری</h4>
+                <div id="chartArea"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    getDataDashboard();
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        //var time = new Date(value).toLocaleTimeString('fa-IR');
+        return data
+    }
+
+    function getDataDashboard() {
+        $.ajax({
+            url: '/api/ApiUser/GetDataDashboard',
+            type: 'Get',
+            headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    $('#registerDate').text(response.data.registerDate);
+                    $('#businessCount').text(response.data.businessFull);
+                    $('#muchPayment').text(response.data.muchPayment);
+                }
+                else {
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+            }
+        });
+    }
+    $(function ($) {
+        chartArea();
+        function chartArea() {
+            $.ajax({
+                url: "/api/ApiVencoin/GetReporAreaChart",
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function (response) {
+                    $("#chartArea").kendoChart({
+                        legend: {
+                            position: "bottom"
+                        },
+                        seriesDefaults: {
+                            type: "area",
+                            area: {
+                                line: {
+                                    style: "smooth"
+                                }
+                            }
+                        },
+                        //series: [{
+                        //    name: "خرید",
+                        //    data: [3.907, 7.943, 7.848, 9.284, 9.263, 9.801, 3.890, 8.238, 9.552, 6.855]
+                        //}, {
+                        //    name: "فروش",
+                        //    data: [1.988, 2.733, 3.994, 3.464, 4.001, 3.939, 1.333, -2.245, 4.339, 2.727]
+                        //}],
+                        series: [{
+                            field: "totalVolume",
+                            categoryField: "registerDate",
+                            name: "فروش",
+                            data: response.data.sales
+                        }, {
+                            field: "totalVolume",
+                            categoryField: "registerDate",
+                            name: "خرید",
+                            data: response.data.buys
+                        }],
+                        valueAxis: {
+                            labels: {
+                                format: "{0}"
+                            },
+                            line: {
+                                visible: false
+                            },
+                            axisCrossingValue: -10
+                        },
+                        categoryAxis: {
+                            majorGridLines: {
+                                visible: false
+                            },
+                            labels: {
+                                rotation: "auto",
+                                template: "تاریخ: #:templateFunction(value)#"
+                            }
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}",
+                            template: "حجم #= series.name #: #= value #"
+                        }
+                    });
+                }
+            })
+        }
+    })
+</script>

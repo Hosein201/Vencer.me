@@ -1,0 +1,421 @@
+﻿@using WebFramework.UserIdentityExtension
+@model EditProfileDto
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<link href="~/assets/plugins/dropify/dist/css/dropify.min.css" rel="stylesheet" />
+
+<style>
+    .cover-photo {
+        background: url(../../assets/images/profile/cover.jpg) !important;
+    }
+</style>
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>پروفایل کاربری</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="profile">
+                    <div class="profile-head">
+                        <div class="photo-content">
+                            <div class="cover-photo"></div>
+                            <div class="profile-photo">
+                                <img src="/imagesUsers/@User.Identity.GetPathImgUser()" id=imgUser class="img-fluid rounded-circle" alt="">
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-8">
+                                    <div class="row">
+                                        <div style="display: none" class="col-xl-4 col-sm-4 border-left-1 prf-col">
+                                            <div class="profile-name">
+                                                <h4 class="text-primary" id="FullNameTitle"></h4>
+                                                <p>نام و نام خانوادگی</p>
+                                            </div>
+                                        </div>
+                                        <div style="display: none" class="col-xl-4 col-sm-4 border-left-1 prf-col">
+                                            <div class="profile-email">
+                                                <h4 class="text-muted" id="EmailTitle"></h4>
+                                                <p>ایمیل</p>
+                                            </div>
+                                        </div>
+                                        <div style="display: none" class="col-xl-4 col-sm-4 prf-col">
+                                            <div class="profile-call">
+                                                <h4 class="text-muted" id="PhoneNumberTitle"></h4>
+                                                <p>شماره تماس</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="profile-tab">
+                            <div class="custom-tab-1">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a href="#profile-settings" data-toggle="tab" class="nav-link active show">ویرایش پروفایل</a>
+                                    </li>
+                                    <li>
+                                        <a href="#profile-img" data-toggle="tab" class="nav-link"> عکس پروفایل</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="profile-settings" class="tab-pane fade active show">
+                                        <div class="pt-3">
+                                            <div class="settings-form">
+                                                <form id="formEditProfile">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="Email">ادرس ایمیل<span class="text-danger">*</span></label>
+                                                            <input asp-for="Email" type="text" class="form-control" placeholder="ادرس ایمیل خود را وارد کنید" />
+                                                            <span class="text-danger font-size-3" asp-validation-for="Email"></span>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="FullName">نام و نام خانوادگی<span class="text-danger">*</span></label>
+                                                            <input asp-for="FullName" type="text" class="form-control" placeholder="اسم و فامیل خود را وارد کنید" />
+                                                            <span class="text-danger font-size-3" asp-validation-for="FullName"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="PhoneNumber">تلفن همراه<span class="text-danger">*</span></label>
+                                                            <input asp-for="PhoneNumber" readonly type="text" class="form-control" />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="Address">آدرس تکمیلی <span class="text-danger">*</span></label>
+                                                            <input asp-for="Address" type="text" class="form-control dropdownEdit " placeholder="آدرس خود را وارد کنید" />
+                                                            <span class="text-danger font-size-3" asp-validation-for="Address"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="CountryId">کشور <span class="text-danger">*</span></label>
+                                                            <input asp-for="CountryId" type="text" class="form-control" placeholder="نام کشور خود را انتخاب کنید" />
+                                                            <span class="text-danger font-size-3" asp-validation-for="CountryId"></span>
+                                                            <input style="display:none" id="valCountryId" />
+                                                            <label id="textCountryId" style="float: unset"><span class="text-danger"></span></label>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="ProvinceId">استان<span class="text-danger">*</span></label>
+                                                            <input asp-for="ProvinceId" type="text" class="form-control" placeholder="نام استان خود را انتخاب کنید" />
+                                                            <span class="text-danger font-size-3" asp-validation-for="ProvinceId"></span>
+                                                            <input style="display:none" id="valProvinceId" />
+                                                            <label id="textProvinceId" style="float: unset"><span class="text-danger"></span></label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label asp-for="CityId">شهر<span class="text-danger">*</span></label>
+                                                            <input id="CityId" type="text" class="form-control" placeholder="نام شهر خود را انتخاب کنید" />
+                                                            <span class="text-danger font-size-3" asp-validation-for="CityId"></span>
+                                                            <input style="display:none" id="valCityId" />
+                                                            <label id="textCityId" style="float: unset"><span class="text-danger"></span></label>
+                                                        </div>
+                                                        <div class="form-group col-md-6" style="display:none">
+                                                            <label>شغل <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" placeholder="لطفا عنوان شغل خود را وارد کنید" />
+                                                            <span class="text-danger font-size-3"></span>
+                                                            <input style="display:none" id="valJobId" />
+                                                            <label id="textJobId" style="float: unset"><span class="text-danger"></span></label>
+                                                        </div>
+                                                    </div>
+                                                    <button id="btnFormEditProfile" class="btn btn-primary" type="button">ذخیره</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="profile-img" class="tab-pane fade">
+                                        <div class="pt-3">
+                                            <div class="settings-form">
+                                                <h6>تغییر عکس پروفایل</h6>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="dropify-default">
+                                                            <input type="file" id="pathImgUser" class="dropify" data-default-file="" />
+                                                        </div>
+                                                        <button type="button" class="btn btn-default btn-info" id="btnPathImgUser" onclick="funImgUser()">ارسال عکس</button>
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/plugins/dropify/dist/js/dropify.min.js"></script>
+<script src="~/assets/js/plugins-init/dropify-init.js"></script>
+<script src="~/Kendo/kendo.aspnetmvc.min.js"></script>
+<script>
+    function funImgUser() {
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("pathImgUser");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+            debugger;
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+
+                    setAttr('id', 'imgUser', 'src', '/imagesUsers/' + result.data);
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+
+    $(function ($) {
+        $("#CountryId").kendoDropDownList({
+            optionLabel: 'انتخاب کنید',
+            dataTextField: "title",
+            dataValueField: "id",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/api/ApiLookups/GetLookupsWithType?Type=Country", //
+                        headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                    }
+                }
+            },
+            select: function (e) {
+                $('#valCountryId').val(e.dataItem.id);
+                e.sender.close();
+            }
+        });
+        $("#ProvinceId").kendoDropDownList({
+            optionLabel: 'انتخاب کنید',
+            dataTextField: "title",
+            dataValueField: "code",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/api/ApiLookups/GetLookupsWithType?Type=Province",
+                        headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                    }
+                }
+            },
+            select: function (e) {
+                $('#valProvinceId').val(e.dataItem.id);
+                city(e.dataItem.code);
+                e.sender.close();
+            }
+        }).data("kendoDropDownList");
+        $("#CityId").kendoDropDownList({
+            optionLabel: 'انتخاب کنید',
+            dataTextField: "title",
+            dataValueField: "code",
+            select: function (e) {
+                $('#valCityId').val(e.dataItem.id);
+                e.sender.close();
+            }
+        }).data("kendoDropDownList");
+        function city(code) {
+            $.ajax({
+                url: "/api/ApiLookups/GetLookupsWithTypeAndAux?Type=City&Aux1=" + code + "",
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function (response) {
+                    var dataSource = new kendo.data.DataSource({
+                        transport: {
+                            read: {
+                                url: "/api/ApiLookups/GetLookupsWithTypeAndAux?Type=City&Aux1=" + code + "",
+                                headers: {
+                                    'Authorization': 'Bearer ' + getCookie('Bearer')
+                                }
+                            }
+                        }
+                    });
+
+                    var kendoDropDownList = $("#CityId").data("kendoDropDownList");
+                    kendoDropDownList.setDataSource(dataSource);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داد است');
+                }
+            });
+        }
+        //$("#JobId").kendoDropDownList({
+        //    optionLabel: 'انتخاب کنید',
+        //    dataTextField: "title",
+        //    dataValueField: "id",
+        //    dataSource: {
+        //        transport: {
+        //            read: {
+        //                url: "/api/ApiLookups/GetLookupsWithType?Type=Job", //
+        //                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+
+        //            }
+        //        }
+        //    },
+        //    select: function (e) {
+        //        $('#valJobId').val(e.dataItem.id);
+        //        e.sender.close();
+        //    }
+        //});
+        //-----------------------------
+        function setDataToForm(data) {
+            $('#FullNameTitle').html(data.fullName);
+            $('#FullName').val(data.fullName);
+            $('#EmailTitle').html(data.email);
+            $('#Email').val(data.email);
+
+            getLookup(data.countryId, 'country');
+            getLookup(data.provinceId, 'province');
+            getLookup(data.cityId, 'city');
+            //   getLookup(data.jobId ,'job');
+
+            $('#Address').val(data.address);
+            $('#PhoneTitle').html(data.phoneNumber);
+            $('#PhoneNumber').val(data.phoneNumber);
+        }   //-----------------------------
+        function setLabel(data, type) {
+            switch (type) {
+                case 'country':
+                    $('#textCountryId').html(data.title);
+                    break;
+                case 'province':
+                    $('#textProvinceId').html(data.title);
+                    break;
+                case 'city':
+                    $('#textCityId').html(data.title);
+                    break;
+                //case 'job':
+                //    $('#textJobId').html(data.title);
+                //    break;
+                default:
+                    break;
+            }
+        }
+
+        function getLookup(id, type) {
+
+            $.ajax({
+                url: "/api/ApiLookups/GetLookupById?id=" + id + "",
+                headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        setLabel(response.data, type);
+                    } else {
+                        gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داد است');
+
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داد است');
+
+                }
+            });
+        }
+        getProfile();
+        function getProfile() {
+            $.ajax({
+                url: '/api/ApiUser/GetProfile',
+                headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        setDataToForm(response.data);
+                    } else {
+                        gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داد است');
+
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داد است');
+
+                }
+            });
+        }
+    });
+
+    $('#btnFormEditProfile').click(function () {
+
+        if ($("#valCountryId").val() == "") {
+            gritterNotification('info', 'پیام', 'لطفا نام کشور خود را انتخاب کنید');
+            return;
+        }
+        if ($("#valProvinceId").val() == "") {
+            gritterNotification('info', 'پیام', 'لطفا نام استان خود را انتخاب کنید');
+            return;
+        }
+        if ($("#valCityId").val() == "") {
+            gritterNotification('info', 'پیام', 'لطفا نام شهر خود را انتخاب کنید');
+            return;
+        }
+        //if ($("#valJobId").val() == "") {
+        //    gritterNotification('info', 'پیام', 'لطفا نام شغل خود را انتخاب کنید');
+        //    return;
+        //}
+
+        var formEditProfile = $('#formEditProfile').valid();
+        if (formEditProfile) {
+            $.ajax({
+                url: '/api/ApiUser/EditProfile',
+                type: 'Post',
+                headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+                data: {
+                    FullName: $('#FullName').val(),
+                    Email: $('#Email').val(),
+                    CountryId: $("#valCountryId").val(),
+                    ProvinceId: $('#valProvinceId').val(),
+                    CityId: $('#valCityId').val(),
+                    Address: $('#Address').val(),
+                    //  JobId: $("#valJobId").val(),
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', 'اطاعات با موفقیت ویرایش شد');
+                    } else {
+                        gritterNotification('error', 'خطا', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داد است');
+                }
+            });
+        } else {
+            $(".field-validation-error").show();
+        };
+    });
+</script>
+

@@ -1,0 +1,184 @@
+﻿@{
+    Layout = null;
+}
+@model UserRegsiterInPanelDto;
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/assets/plugins/toastr/css/toastr.min.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+<link href="~/account/css/regsiter.css" rel="stylesheet" />
+
+
+<input class="c-checkbox" type="checkbox" id="start">
+<input class="c-checkbox" type="checkbox" id="progress2">
+<input class="c-checkbox" type="checkbox" id="progress3">
+<input class="c-checkbox" type="checkbox" id="progress4">
+<input class="c-checkbox" type="checkbox" id="progress5">
+<input class="c-checkbox" type="checkbox" id="progress6">
+<input class="c-checkbox" type="checkbox" id="progress7">
+<input class="c-checkbox" type="checkbox" id="progress8">
+<input class="c-checkbox" type="checkbox" id="finish">
+<div class="c-form__progress"></div>
+
+<div class="c-formContainer">
+    <div class="c-welcome">
+        <span style="font-size:25px"> Vencer  دریچه ای رو به  موفقیت های آینده</span>
+        <div style="text-align:center ;margin: 30px;">
+            <button type="button" id="btnResiter" class="btn btn-success ">
+                تایید ثبت نام <span class="btn-icon-right"><i class="fa fa-heart"></i></span>
+            </button>
+        </div>
+    </div>
+    <form class="c-form" id="formRegsiter">
+        <div class="c-form__group">
+            <label class="c-form__label" for="UserName">
+                <input asp-for="UserName" type="text" id="UserName" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="progress2" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+                <span class="c-form__groupLabel">ایجاد نام کاربری</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div>
+
+        <div class="c-form__group">
+            <label class="c-form__label" for="Email">
+                <input asp-for="Email" type="email" id="Email" class="c-form__input" placeholder=" " required>
+
+                <label class="c-form__next" for="progress3" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel">ایجاد ایمیل کاربری</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div>
+
+        <div class="c-form__group">
+            <label class="c-form__label" for="Password">
+                <input asp-for="Password" type="password" id="Password" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="progress4" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel">پسورد خود را وارد کنید</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div>
+
+        <div class="c-form__group">
+            <label class="c-form__label" for="Mobile">
+                <input asp-for="Mobile" type="number" id="Mobile" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="progress5" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel">تلفن همراه خود را وارد کنید</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div> 
+        
+        <div class="c-form__group">
+            <label class="c-form__label" for="FullName">
+                <input asp-for="FullName" id="FullName" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="progress6" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel">نام و نام خانوادگی  خود را وارد کنید</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div> 
+        
+        <div class="c-form__group">
+            <label class="c-form__label" for="NameBusiness">
+                <input asp-for="NameBusiness" id="NameBusiness" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="progress7" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel">نام کسب و کار  خود را وارد کنید</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div> 
+        
+        <div class="c-form__group">
+            <label class="c-form__label" for="BusinessManeger">
+                <input asp-for="BusinessManeger" id="BusinessManeger" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="progress8" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel"> نام مدیر کسب و کار خود را وارد کنید</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div>    
+        
+        <div class="c-form__group">
+            <label class="c-form__label" for="BusinessUrl">
+                <input asp-for="BusinessUrl" id="BusinessUrl" class="c-form__input" placeholder=" " required>
+                <label class="c-form__next" for="finish" role="button">
+                    <span class="c-form__nextIcon"></span>
+                </label>
+
+                <span class="c-form__groupLabel"> نام کسب و کار خود را وارد به انگلیسی کنید</span>
+                <b class="c-form__border"></b>
+            </label>
+        </div>
+
+        <label class="c-form__toggle" for="start">کلیک کنید<span class="c-form__toggleIcon"></span></label>
+    </form>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/assets/plugins/toastr/js/toastr.js"></script>
+
+<script src="~/js/globalFunction.js"></script>
+
+<script>
+    disabledBtn('btnResiter', false)
+    $('#btnResiter').click(function () {
+        var formRegsiter = $('#formRegsiter').valid();
+        if (formRegsiter) {
+            disabledBtn('btnResiter', true);
+            $.ajax({
+                url: '/api/ApiAccount/RegsiterInPanel',
+                type: 'Post',
+                data: {
+                    UserName: $('#UserName').val(),
+                    Email: $('#Email').val(),
+                    Password: $('#Password').val(),
+                    Mobile: $('#Mobile').val(),
+                    FullName: $('#FullName').val(),
+                    NameBusiness: $('#NameBusiness').val(),
+                    BusinessManeger: $('#BusinessManeger').val(),
+                    BusinessUrl: $('#BusinessUrl').val(),
+                    DcrAmount: "ایجاد کسب و کار"
+                },
+                success: function (response) {
+                    debugger
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', response.message);
+                        window.location.href = response.data;
+                    }
+                    else {
+                        disabledBtn('btnResiter', false);
+                        gritterNotification('error', 'خطا', response.message);
+
+                    }
+                },
+                error: function (xhr) {
+                    debugger
+                    disabledBtn('btnResiter', false);
+                    console.log(xhr);
+                    gritterNotification('error', 'ناموفق',xhr.responseJSON.Message);
+                }
+            });
+        } else {
+            $(".field-validation-error").show();
+        }
+
+    })
+</script>

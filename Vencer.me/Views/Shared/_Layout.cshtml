@@ -1,0 +1,406 @@
+﻿@using WebFramework.UserIdentityExtension
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vencer.me</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="~/assets/plugins/jquery-steps/css/jquery.steps.css" rel="stylesheet" />
+    <link href="~/assets/plugins/toastr/css/toastr.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/Kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Kendo/kendo.blueopal.min.css" rel="stylesheet" />
+    <link href="~/Kendo/kendo.rtl.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/Kendo/jquery.min.js"></script>
+    <script src="~/Kendo/kendo.all.min.js"></script>
+    <script src="~/Kendo/kendo.messages.fa-IR.min.js"></script>
+    <script src="~/js/globalFunction.js"></script>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a asp-controller="Home" asp-action="Index">
+                    <b><img src="~/vencer.meDash.png" alt="vencer"> </b>
+                </a>
+            </div>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span> <span class="line"></span> <span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <ul>
+                        <li class="icons position-relative">
+                            <a href="javascript:void(0)">
+                                <i class="icon-magnifier f-s-16"></i>
+                            </a>
+                            <div class="drop-down animated bounceInDown">
+                                <div class="dropdown-content-body">
+                                    <div class="header-search" id="header-search">
+                                        <form action="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="جستجو ...">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="icon-magnifier"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li class="icons" style="display:none">
+                            <a href="javascript:void(0)">
+                                <i class="mdi mdi-comment"></i>
+                                <div class="pulse-css"></div>
+                            </a>
+                            <div class="drop-down animated bounceInDown">
+                                <div class="dropdown-content-heading">
+                                    <span class="pull-right">پیام ها</span>
+                                    <a href="javascript:void()" class="pull-left text-white">مشاهده همه</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li class="notification-unread">
+                                            <a href="javascript:void()">
+                                                <img class="pull-left mr-3 avatar-img"
+                                                     src="../../assets/images/avatar/1.jpg" alt="">
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">رضا افشار</div>
+                                                    <div class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </div><small class="notification-timestamp">
+                                                        08 ساعت
+                                                        پیش
+                                                    </small>
+                                                </div>
+                                            </a><span class="notify-close"><i class="ti-close"></i></span>
+                                        </li>
+                                        <li class="notification-unread">
+                                            <a href="javascript:void()">
+                                                <img class="pull-left mr-3 avatar-img"
+                                                     src="../../assets/images/avatar/2.jpg" alt="">
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">امیر صبوری</div>
+                                                    <div class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </div><small class="notification-timestamp">
+                                                        08 ساعت
+                                                        پیش
+                                                    </small>
+                                                </div>
+                                            </a><span class="notify-close"><i class="ti-close"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <img class="pull-left mr-3 avatar-img"
+                                                     src="../../assets/images/avatar/3.jpg" alt="">
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">پدرام شریفی</div>
+                                                    <div class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </div><small class="notification-timestamp">
+                                                        08 ساعت
+                                                        پیش
+                                                    </small>
+                                                </div>
+                                            </a><span class="notify-close"><i class="ti-close"></i></span>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <img class="pull-left mr-3 avatar-img"
+                                                     src="../../assets/images/avatar/4.jpg" alt="">
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">نسترن سبحانی</div>
+                                                    <div class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </div><small class="notification-timestamp">
+                                                        08 ساعت
+                                                        پیش
+                                                    </small>
+                                                </div>
+                                            </a><span class="notify-close"><i class="ti-close"></i></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons" style="display:none">
+                            <a href="javascript:void(0)">
+                                <i class="mdi mdi-bell"></i>
+                                <div class="pulse-css"></div>
+                            </a>
+                            <div class="drop-down animated bounceInDown dropdown-notfication">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-success-lighten-2">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">یلدا افشار</div>
+                                                    <span class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </span>
+                                                    <small class="notification-timestamp">20 تیر 1399، 15:30</small>
+                                                </div>
+                                            </a>
+                                            <span class="notify-close">
+                                                <i class="ti-close"></i>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-danger-lighten-2">
+                                                    <i class="fa fa-close"></i>
+                                                </span>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">کیمیا صبوری</div><span class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </span> <small class="notification-timestamp">
+                                                        20 تیر 1399،
+                                                        15:30
+                                                    </small>
+                                                </div>
+                                            </a>
+                                            <span class="notify-close">
+                                                <i class="ti-close"></i>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-success-lighten-2">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">پدرام شریفی</div><span class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </span> <small class="notification-timestamp">
+                                                        20 تیر 1399،
+                                                        15:30
+                                                    </small>
+                                                </div>
+                                            </a>
+                                            <span class="notify-close">
+                                                <i class="ti-close"></i>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-danger-lighten-2">
+                                                    <i class="fa fa-close"></i>
+                                                </span>
+                                                <div class="notification-content">
+                                                    <div class="notification-heading">نسترن سبحانی</div><span class="notification-text">
+                                                        این یک پیام شگفت انگیز است، لورم
+                                                        ایپسوم
+                                                    </span> <small class="notification-timestamp">
+                                                        20 تیر 1399،
+                                                        15:30
+                                                    </small>
+                                                </div>
+                                            </a>
+                                            <span class="notify-close">
+                                                <i class="ti-close"></i>
+                                            </span>
+                                        </li>
+                                        <li class="text-left">
+                                            <a href="javascript:void()" class="more-link">
+                                                نمایش همه
+                                                اعلان ها
+                                            </a> <span class="pull-left">
+                                                <i class="fa fa-angle-left"></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons">
+                            <a href="javascript:void(0)" class="log-user">
+                                <img src="~/@User.Identity.GetPathImgUser()" alt=""> <span>@User.Identity.GetFullNameUser()</span> <i class="fa fa-caret-down f-s-14" aria-hidden="true"></i>
+                            </a>
+                            <div class="drop-down dropdown-profile animated bounceInDown">
+                                <div class="dropdown-content-body">
+                                    <ul>
+
+                                        <li>
+                                            <a asp-controller="User" asp-action="EditProfile">
+                                                <i class="icon-user"></i> <span>
+                                                    پروفایل
+                                                    من
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Payment" asp-action="ReportPayments">
+                                                <i class="icon-wallet"></i> <span>
+                                                    کیف پول
+                                                    من
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Account" asp-action="ChangePassword">
+                                                <i class="icon-envelope"></i>
+                                                <span>تغییر رمز عبور</span>
+                                            </a>
+                                        </li>
+                                        <li style="display:none">
+                                            <a href="javascript:void()">
+                                                <i class="fa fa-cog"></i>
+                                                <span>تنظیمات</span>
+                                            </a>
+                                        </li>
+                                        <li style="display:none">
+                                            <a href="javascript:void()">
+                                                <i class="icon-lock"></i> <span>
+                                                    قفل
+                                                    صفحه
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Home" asp-action="Logout">
+                                                <i class="icon-power"></i>
+                                                <span>خروج</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end
+        ***********************************-->
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <partial name="~/Views/Shared/SidebarLeft.cshtml" />
+
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                @RenderBody()
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright text-center">
+                <a href="#">Copyright &copy; 2020، تمام حقوق محفوظ است</a>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+        <!--**********************************
+            Right sidebar start
+        ***********************************-->
+        <partial name="~/Views/Shared/SidebarRight.cshtml" />
+
+        <!--**********************************
+            Right sidebar end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+    <!--**********************************
+         Scripts
+     ***********************************-->
+    <script src="~/assets/plugins/common/common.min.js"></script>
+    <script src="~/assets/js/custom.min.js"></script>
+    <script src="~/assets/js/settings.js"></script>
+    <script src="~/assets/js/gleek.js"></script>
+    <script src="~/assets/js/styleSwitcher.js"></script>
+    <script src="~/assets/plugins/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="~/assets/js/plugins-init/jquery-steps-init.js"></script>
+    <script src="~/assets/plugins/toastr/js/toastr.js"></script>
+    <script src="~/assets/plugins/webticker/jquery.webticker.min.js"></script>
+    <script src="~/assets/js/plugins-init/webticker-init.js"></script>
+    <!-- Morris Chart -->
+    <script src="~/assets/plugins/raphael/raphael.min.js"></script>
+    <script src="~/assets/plugins/morris/morris.min.js"></script>
+    <!-- Custom dashboard script -->
+    <script src="~/assets/plugins/amcharts/amcharts.js"></script>
+    <script src="~/assets/plugins/amcharts/serial.js"></script>
+    <script src="~/assets/plugins/amcharts/amstock.js"></script>
+    <script src="~/assets/plugins/amcharts/plugins/export.min.js"></script>
+
+
+    <partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
+
+</body>
+
+</html>

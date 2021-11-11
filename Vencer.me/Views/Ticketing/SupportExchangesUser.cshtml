@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>مشاهده وضعیت درخواست </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <div id="gridSupportExchangeUser" class="k-rtl"></div>
+    </div>
+    </div>
+    </div>
+</div>
+<script src="~/Kendo/kendo.aspnetmvc.min.js"></script>
+<script>
+    $('#gridSupportExchangeUser').kendoGrid({
+        dataSource: {
+            type: (function () {
+                if (kendo.data.transports["aspnetmvc-ajax"]) {
+                    return "aspnetmvc-ajax"
+                } else {
+                    throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                }
+            }),
+            transport: {
+                read: {
+                    url: "/api/ApiTicketing/GetSupportExchangesUser",
+                    headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                }
+            },
+            pageSize: 20,
+            serverPage: true,
+            schema: {
+                data: "data.data",
+                total: "data.total"
+            },
+            serverFiltering: true,
+            serverSorting: true,
+            "filter": []
+        },
+        height: 550,
+        groupable: true,
+        sortable: true,
+        pageable: {
+            pageSizes: true,
+            buttonCount: 5
+        },
+        columns: [
+            {
+                field: "Row",
+                title: " ردیف",
+                width: 50
+            }, {
+                field: "numberOfTicket",
+                title: " شماره تیکت",
+                width: 100
+            }, {
+                field: "amountOfExchange",
+                title: " مبلغ",
+                width: 150
+            }, {
+                field: "accountNumberOfBank",
+                title: "شماره کارت",
+                width: 150
+            }, {
+                field: "description",
+                title: "توضیحات",
+                width: 150
+            }, {
+                template: "#: templateFunction(data.registerDate ) #",
+                field: "registerDate",
+                title: "تاریخ واریز",
+                width: 150
+            }, {
+                template: "#: templateFunctionState(data.state ) # ",
+                field: "state",
+                title: "وضعیت",
+                width: 150
+            }
+        ],
+        dataBinding: function (a) {
+            var row = 0;
+            a.items.forEach(function (value) {
+                row++;
+                value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row
+            })
+        }
+    });
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return time + ' ' + data
+    }
+    function templateFunctionState(value) {
+        switch (parseInt(value)) {
+        case 0:
+            return "درحال بررسی فایل";
+        case 1:
+            return "درحال انجام";
+        case 2:
+            return "رد شده توسط کاربر";
+        case 3:
+            return "رد شده توسط مدیر";
+        case 4:
+            return "تایید نهایی";
+        default:
+            return "نا مشخص";
+        }
+    }
+
+</script>

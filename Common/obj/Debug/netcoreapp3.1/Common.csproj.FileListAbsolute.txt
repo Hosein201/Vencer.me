@@ -1,0 +1,9 @@
+E:\githup\Vencerme\Common\bin\Debug\netcoreapp3.1\Common.deps.json
+E:\githup\Vencerme\Common\bin\Debug\netcoreapp3.1\Common.dll
+E:\githup\Vencerme\Common\bin\Debug\netcoreapp3.1\Common.pdb
+E:\githup\Vencerme\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache
+E:\githup\Vencerme\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
+E:\githup\Vencerme\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
+E:\githup\Vencerme\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
+E:\githup\Vencerme\Common\obj\Debug\netcoreapp3.1\Common.dll
+E:\githup\Vencerme\Common\obj\Debug\netcoreapp3.1\Common.pdb

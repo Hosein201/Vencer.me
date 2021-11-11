@@ -1,0 +1,16 @@
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\ServicePovider.deps.json
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\ServicePovider.dll
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\ServicePovider.pdb
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\Common.dll
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\Data.dll
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\WebFramework.dll
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\WebFramework.pdb
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\Common.pdb
+E:\githup\Vencerme\ServicePovider\bin\Debug\netcoreapp3.1\Data.pdb
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.csprojAssemblyReference.cache
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.AssemblyInfoInputs.cache
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.AssemblyInfo.cs
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.csproj.CoreCompileInputs.cache
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.csproj.CopyComplete
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.dll
+E:\githup\Vencerme\ServicePovider\obj\Debug\netcoreapp3.1\ServicePovider.pdb

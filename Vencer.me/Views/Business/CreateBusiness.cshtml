@@ -1,0 +1,552 @@
+﻿@using WebFramework.UserIdentityExtension
+@model Data.Dto.Business.CreateBioBusinessDto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>ثبت کسب و کار جدید</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-5">شروع کنید....</h4>
+                <form  id="formCreateBioBusiness" class="step-form-horizontal">
+                    <div>
+                        <h4>اطلاعات شخصی</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="BusinessUrl" class="text-label"></label>
+                                        <input asp-for="BusinessUrl" class="form-control" placeholder="آدرس اینترنتی مورد نظر کسب کار خود را وارد کنید" />
+                                        <span asp-validation-for="BusinessUrl" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="NameBusiness" class="text-label"></label>
+                                        <input asp-for="NameBusiness" class="form-control" placeholder="نام کسب کار خود را وارد کنید" />
+                                        <span asp-validation-for="NameBusiness" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="BusinessManeger" class="text-label"></label>
+                                        <input asp-for="BusinessManeger" class="form-control" placeholder="نام مدیر کسب کار را وارد کنید" />
+                                        <span asp-validation-for="BusinessManeger" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="TypeBusiness" class="text-label"></label>
+                                        <input asp-for="TypeBusiness" class="form-control" placeholder="نوع کسب کار خود را وارد کنید" />
+                                        <span asp-validation-for="TypeBusiness" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="text-label"></label>
+                                        <div class="input-group">
+                                            <input asp-for="Email" type="email" class="form-control border-left-0" placeholder="ایمیل خود را وارد کنید" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text bg-transparent" id="inputGroupPrepend3"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="text-label"></label>
+                                        <textarea asp-for="Description" class="form-control" placeholder="توضیحات کسب کار خود را وارد کنید"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="text-label"></label>
+                                        <input asp-for="Address" class="form-control" placeholder="آدرس کسب کار خود را وارد کنید" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <h4>اطلاعات شرکت</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Mobile" class="text-label"></label>
+                                        <div class="input-group">
+                                            <input asp-for="Mobile" class="form-control border-left-0" placeholder="موبایل خود را وارد کنید" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text bg-transparent" id="inputGroupPrepend5"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="HomeNumber" class="text-label"></label>
+                                        <div class="input-group">
+                                            <input asp-for="HomeNumber" type="number" class="form-control" placeholder="تلفن محل کسب کار خود وارد کنید" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text bg-transparent" id="inputGroupPrepend5"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="HomeNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="FaxNumber" class="text-label"></label>
+                                        <div class="input-group">
+                                            <input asp-for="FaxNumber" type="number" class="form-control" placeholder="شماره فکس را وارد کنید" />                                            <div class="input-group-append">
+                                                <span class="input-group-text bg-transparent" id="inputGroupPrepend5"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="FaxNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="PathVideo" class="text-label"></label>
+                                        <input asp-for="PathVideo" type="text" class="form-control" placeholder="ادرس کامل ویدیو معرفی کسب کار خود را وارد کنید" />
+                                        <span asp-validation-for="PathVideo" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="WhatsApp" class="text-label"></label>
+                                        <input asp-for="WhatsApp" type="text" class="form-control" placeholder="شماره تلفن واتسپ خود را وارد کنید" />
+                                        <span asp-validation-for="WhatsApp" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Instagram" class="text-label"></label>
+                                        <input asp-for="Instagram" type="text" class="form-control" placeholder="ادرس اینستا خود را وارد کنید" />
+                                        <span asp-validation-for="Instagram" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Youtube" class="text-label"></label>
+                                        <input asp-for="Youtube"  type="text" class="form-control" placeholder="ادرس اکانت خود را بصورت کامل وارد کنید" />
+                                        <span asp-validation-for="Youtube" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <label asp-for="Aparat" class="text-label"></label>
+                                        <input asp-for="Aparat" type="text"  class="form-control" placeholder="ادرس کامل اکانت آپارات خود را وارد کنید" />
+                                        <span asp-validation-for="Aparat" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                        <h4>ساعت کاری</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>شنبه *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="9.00" type="number"name="input1" id="input1">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="6.00" type="number"name="input2" id="input2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>یک شنبه *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="9.00" type="number"name="input3" id="input3">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="6.00" type="number"name="input4" id="input4">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>دوشنبه *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="9.00" type="number"name="input5" id="input5">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="6.00" type="number"name="input6" id="input6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>سه شنبه *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="9.00" type="number"name="input7" id="input7">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="6.00" type="number"name="input8" id="input8">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>چهار شنبه *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="9.00" type="number"name="input9" id="input9">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="6.00" type="number"name="input10" id="input10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>پنج شنبه *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="9.00" type="number"name="input11" id="input11">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="6.00" type="number"name="input12" id="input12">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <h4>ناهار *</h4>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">                                        
+                                        <input class="form-control" value="11.00" type="number"name="input13" id="input13">
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-3 mb-4">
+                                    <div class="form-group">
+                                        <input class="form-control" value="12.00" type="number"name="input14" id="input14">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <h4>تنظیمات لوگو</h4>
+                        <section>
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <img id="imgPathLogoMini" src="~/placeholderImage.jpg" style="width:50px" />
+                                        <label asp-for="PathLogoMini" class="text-label">لوگو</label>
+                                        <input type="file" class="form-control" id="PathLogoMini" />
+                                        <button type="button" class="btn btn-default btn-info" id="btnPathLogoMini" onclick="funPathLogoMini()">ارسال لوگو</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <img id="imgPathLogoMax" src="~/placeholderImage.jpg" style="width:50px" />
+                                        <label asp-for="PathLogoMax" class="text-label">پس زمینه</label>
+                                        <input type="file" id="PathLogoMax" class="form-control" />
+                                        <button type="button" class="btn btn-default btn-info" id="btnPathLogoMax" onclick="funPathLogoMax()">ارسال عکس زمینه</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="form-group">
+                                        <img id="imgPathLicense" src="~/placeholderImage.jpg" style="width:50px" />
+                                        <label asp-for="PathLicense" class="text-label">اسناد و مدارک</label>
+                                        <input type="file" id="PathLicense" class="form-control" />
+                                        <button type="button" class="btn btn-default btn-info"id="btnPathLicense" onclick="funPathLicense()">ارسال اسناد</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-4">
+                                    <div class="form-group">
+                                        <button type="button" value="Create" onclick="funCreatBioBusiness()" class="form-control btn btn-success btn-lg">ذخیره اطلاعات</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var userCredit = 0;
+    checkUserCredit();
+    function checkUserCredit() {
+        $.ajax({
+            url: '/api/ApiPayment/GetSumAmountUserWithDiscount',
+            type: 'Get',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            success: function (response) {
+                debugger 
+                console.log(response);
+                if (response.isSuccess) {
+                    userCredit = response.data.numberPayment;
+                    if (userCredit <= 0 || userCredit < 20000 ) {
+                        $.ajax({
+                            url: '/api/ApiPayment/RequestToPay',
+                            type: 'Post',
+                            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                            data: {
+                                Mobile:'@User.Identity.GetMobileUser()',
+                                WherePayment: 'افزایش اعتبار',
+                                Description: 'ایجاد کسب و کار',
+                                Amount: 50000
+                            },
+                            success: function (response) {
+                                ;
+                                console.log(response);
+                                if (response.isSuccess) {
+                                    window.location.href = response.data
+                                }
+                                else {
+                                    disabledBtn('btnAddPaymentForm', false)
+                                    gritterNotification('error', 'خطا', response.message);
+                                }
+                            },
+                            error: function (xhr) {
+                                disabledBtn('btnAddPaymentForm', false)
+                                console.log(xhr);
+                                ;
+                                gritterNotification('error', xhr.responseJSON.Message);
+                            }
+                        });
+                    }
+                }
+                else {
+                    disabledBtn('btnformBuy', false);
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                disabledBtn('btnformBuy', false);
+                console.log(xhr);
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+
+    }
+    disabledBtn("btnPathLogoMini" ,false);
+    disabledBtn("btnPathLogoMax", false);
+    disabledBtn("btnPathLicense", false);
+
+    function funPathLogoMini() {
+        // Form Data
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("PathLogoMini");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای لوگو انتخاب نشده است');
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد'); //                $('#pathLogoMini2').attr('src', '/imagesUsers/' + data.pathLogoMini)
+
+                    setAttr('id', 'imgPathLogoMini', 'src', '/imagesUsers/'+result.data);
+                    setAttr('id', 'imgPathLogoMini', 'data', result.data);
+                    $('#imgPathLogoMini').addClass('setImg');
+                    disabledBtn("btnPathLogoMini" ,true);
+
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+    function funPathLogoMax() {
+        // Form Data
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("PathLogoMax");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای زمینه انتخاب نشده است');
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                    setAttr('id', 'imgPathLogoMax', 'src', '/imagesUsers/' + result.data);
+                    setAttr('id', 'imgPathLogoMax', 'data', result.data);
+                    $('#imgPathLogoMax').addClass('setImg');
+                    disabledBtn("btnPathLogoMax" ,true);
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+    function funPathLicense() {
+        // Form Data
+        var formData = new FormData();
+
+        var fileSelect = document.getElementById("PathLicense");
+        if (fileSelect.files && fileSelect.files.length == 1) {
+            var file = fileSelect.files[0]
+            console.log(file)
+            formData.set("files", file, file.name);
+        }
+        else if (fileSelect.files && fileSelect.files.length == 0) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای مدارک انتخاب نشده است');
+            return;
+        }
+        // Http Request
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var result = JSON.parse(request.responseText);
+                ;
+                if (result.isSuccess) {
+                    gritterNotification('success', 'موفق', 'عملیات با موفقیت انجام شد');
+                    setAttr('id', 'imgPathLicense', 'src', '/imagesUsers/' + result.data);
+                    setAttr('id', 'imgPathLicense', 'data',  result.data);
+                    $('#imgPathLicense').addClass('setImg');
+                    disabledBtn("btnPathLicense" ,true);
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            }
+        }
+        request.open('POST', "/api/ApiFileManeger/CreateFile");
+        request.send(formData);
+    }
+    function functionClock() {
+        var data = [];
+        data.push({ input1: $('#input1').val() });
+        data.push({ input2: $('#input2').val() });
+        data.push({ input3: $('#input3').val() });
+        data.push({ input4: $('#input4').val() });
+        data.push({ input5: $('#input5').val() });
+        data.push({ input6: $('#input6').val() });
+        data.push({ input7: $('#input7').val() });
+        data.push({ input8: $('#input8').val() });
+        data.push({ input9: $('#input9').val() });
+        data.push({ input10: $('#input10').val() });
+        data.push({ input11: $('#input11').val() });
+        data.push({ input12: $('#input12').val() });
+        data.push({ input13: $('#input13').val() });
+        data.push({ input14: $('#input14').val() });
+        return data;
+    }
+    function funCreatBioBusiness() {
+           
+        if ($('#imgPathLogoMini').hasClass('setImg') == false) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای لوگو ارسال نشده است');
+            return;
+        }
+        if ($('#imgPathLogoMax').hasClass('setImg') == false) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای زمینه ارسال نشده است');
+            return;
+        }
+        if ($('#imgPathLicense').hasClass('setImg') == false) {
+            gritterNotification('error', 'خطا', 'هیجی عکسی برای مدارک ارسال نشده است');
+            return;
+        }
+        var formCreateBioBusiness = $('#formCreateBioBusiness').valid();
+        if (formCreateBioBusiness) {
+            $.ajax({
+                url: '/api/ApiBusiness/CreateBusiness',
+                headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+                type: 'Post',
+                data: {
+                    BusinessUrl: $('#BusinessUrl').val(),
+                    NameBusiness: $('#NameBusiness').val(),
+                    TypeBusiness: $('#TypeBusiness').val(),
+                    BusinessManeger: $('#BusinessManeger').val(),
+                    Description: $('#Description').val(),
+                    Email: $('#Email').val(),
+                    Address: $('#Address').val(),
+                    Mobile: $('#Mobile').val(),
+                    HomeNumber: $('#HomeNumber').val(),
+                    FaxNumber: $('#FaxNumber').val(),
+                    PathVideo: $('#PathVideo').val(),
+                    WhatsApp: $('#WhatsApp').val(),
+                    Instagram: $('#Instagram').val(),
+                    Youtube: $('#Youtube').val(),
+                    Aparat: $('#Aparat').val(),
+                    Clock: JSON.stringify(functionClock()),
+                    PathLogoMini: getValueAttr('id', 'imgPathLogoMini', 'data'),
+                    PathLogoMax: getValueAttr('id', 'imgPathLogoMax', 'data'),
+                    PathLicense: getValueAttr('id', 'imgPathLicense', 'data')
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', 'تبریک با موفقیت عضوثیت شد');
+                    }
+                    else {
+                        gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    ;
+                    gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+                }
+            });
+
+        } else {
+            $(".field-validation-error").show();
+        }
+    }
+</script>

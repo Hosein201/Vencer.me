@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>لیست کاربران</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <div id="gridUsers" class="k-rtl"></div>
+    </div>
+    </div>
+    </div>
+</div>
+<script src="~/Kendo/kendo.aspnetmvc.min.js"></script>
+
+<script>
+    $('#gridUsers').kendoGrid({
+        dataSource: {
+            type: (function () {
+                if (kendo.data.transports["aspnetmvc-ajax"]) {
+                    return "aspnetmvc-ajax"
+                } else {
+                    throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                }
+            }),
+            transport: {
+                read: {
+                    url: "/api/ApiUser/GetUsers",
+                    headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                }
+            },
+            pageSize: 20,
+            serverPage: true,
+            schema: {
+                data: "data",
+                total: "total"
+            },
+            serverFiltering: true,
+            serverSorting: true,
+            "filter": []
+        },
+        height: 550,
+        groupable: true,
+        sortable: true,
+        pageable: {
+            pageSizes: true,
+            buttonCount: 5
+        },
+        columns: [{
+            field: "Row",
+            title: " ردیف",
+            width: 50
+        }, {
+                field: "id",
+                title: " ایدی", hidden:true,
+            width: 150
+        },
+        {
+            field: "fullName",
+            title: "نام خانوادگی",
+            width: 150
+        }, {
+            field: "userName",
+            title: "نام کاربری",
+            width: 150
+        },
+        {
+            field: "mobile",
+            title: "تلفن همراه",
+            width: 150
+        }, {
+            field: "email",
+            title: "ایمیل",
+            width: 150
+        }],
+        dataBinding: function (a) {
+            var row = 0;
+            a.items.forEach(function (value) {
+                row++;
+                value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row
+            })
+        }
+    });
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return time + ' ' + data
+    }
+</script>

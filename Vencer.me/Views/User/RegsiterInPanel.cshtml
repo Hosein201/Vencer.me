@@ -1,0 +1,173 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model UserRegsiterInPanelDto;
+
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>فرم ثبت نام</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 mb-5">
+    <div class="card button-card">
+        <div class="card-body">
+        <form id="formRegitserInPanel">
+            <!-- SmartWizard html -->
+            <div id="smartwizard1" class="form-wizard">
+                <!-- <div> -->
+                <ul class="form-wizard-left" style="background-color: #7F63F4">
+                    <li>
+                        <div class="form-wizard-content" style="text-align: center">
+                            <div class="form-wizard-content-upper">
+                                <img src="../../assets/images/avatar/7.png" alt="">
+                                <h4 style="margin-top: 14px">ایجاد کاربر جدید</h4>
+                                <p style="text-align: justify">
+                                    اطاعات کاربر جدید را بدرستی وارد نماید جهت ثبت نام و ثبت اولین کسب وکار دقت داشته باشید هزینه کسب و کار از کاربر بصورت نقدی گرفته شود
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- </div> -->
+                <div class="form-wizard-right">
+                    <h4 class="card-title mb-5">فرم ثبت نام کاربر جدید و اولین کسب و کار</h4>
+                    <div id="step-1">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">نام</label>
+                                    <input type="text" id="firstName" class="form-control" placeholder="نام خود را وارد کنید" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">نام خانوادگی</label>
+                                    <input type="text" id="lastName" class="form-control" placeholder="نام خانوادگی خود را وارد کنید" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">نام کاربری</label>
+                                    <input type="text" asp-for="UserName" class="form-control" placeholder="نام کاربری خود را وارد کنید" required>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="UserName"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">رمز عبور</label>
+                                    <input type="password" asp-for="Password" class="form-control" placeholder="رمز عبور خود را وارد کنید" required>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="Password"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">آدرس ایمیل</label>
+                                    <div class="input-group">
+                                        <input type="email" asp-for="Email" class="form-control border-left-0" placeholder="example@gmail.com" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-transparent" id="inputGroupPrepend2">
+                                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="Email"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">شماره تماس</label>
+                                    <div class="input-group">
+                                        <input type="text" asp-for="Mobile" class="form-control border-left-0" placeholder="تلفن همراه خود را وارد کنید" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-transparent" id="inputGroupPrepend2">
+                                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="Mobile"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">نام کسب و کار </label>
+                                    <input type="text" asp-for="NameBusiness" class="form-control" placeholder="نام کسب کار خود را وارد کنید" required>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="NameBusiness"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="text-label">نام مدیر کسب وکار</label>
+                                    <input type="text" asp-for="BusinessManeger" class="form-control" placeholder="نام مدیر کسب کار خود را وارد کنید" required>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="BusinessManeger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="text-label">توضیحات</label>
+                                    <input type="text" asp-for="DcrAmount" class="form-control" placeholder="توضیحات مبلغ پرداختی خود را وارد کنید" required>
+                                    <span class="text-danger font-size-3" style="float: right" asp-validation-for="DcrAmount"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success" id="btnFormRegitserInPanel"> تایید</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+<script>
+    disabledBtn('btnFormRegitserInPanel', false);
+    $('#btnFormRegitserInPanel').click(function () {
+        debugger;
+        var formRegitserInPanel = $('#formRegitserInPanel').valid();
+        if (formRegitserInPanel) {
+            disabledBtn('btnFormRegitserInPanel', false);
+            $.ajax({
+                url: '/api/ApiAccount/RegsiterInPanel',
+                type: 'Post',
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                data: {
+                    FullName: $('#firstName').val() +' '+ $('#lastName').val() ,
+                    UserName: $('#UserName').val(),
+                    Email: $('#Email').val(),
+                    Password: $('#Password').val(),
+                    Mobile: $('#Mobile').val(),
+                    NameBusiness: $('#NameBusiness').val(),
+                    BusinessManeger: $('#BusinessManeger').val(),
+                    DcrAmount: $('#DcrAmount').val(),
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', response.message);
+                    }
+                    else {
+                        disabledBtn('btnFormRegitserInPanel', false)
+                        gritterNotification('error', 'خطا', response.message);
+
+                    }
+                },
+                error: function (xhr) {
+                    disabledBtn('btnFormRegitserInPanel', false)
+                    console.log(xhr);
+                    debugger;
+                    gritterNotification('error', 'خطا', JSON.parse(xhr.responseJSON.Data).Exception);
+
+                }
+            });
+        } else {
+            $(".field-validation-error").show();
+        }
+
+    })
+</script>

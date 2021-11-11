@@ -1,0 +1,453 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col p-0">
+        <h4>گزارش های ارز دیجیتال</h4>
+    </div>
+</div>
+<div class="row pb-5 pb-sm-0">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <ul id="webticker-dark-icons" class="gain-loose-ticker">
+                    <li data-update="item1">
+                        <h6 id="lastTransactionTime"><span class="text-primary pr-2" >آخرین قیمت معامله شده</span> </h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6 id="minSalePrice"> 
+                            <span class="text-primary pr-2" >کمترین قیمت فروش</span>  
+                        </h6>
+                            
+                        
+                    </li>
+                    <li data-update="item1">
+                        <h6 id="maxSalePrice">
+                            <span class="text-primary pr-2" >بیشترین قیمت فروش</span>  
+
+                        </h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6 id="maxBuyPrice">
+                            <span class="text-primary pr-2" >کمترین قیمت خرید</span> 
+                            
+                        </h6>
+                    </li>
+                    <li data-update="item1">
+                        <h6 id="minBuyPrice">
+                            <span class="text-primary pr-2" >بیشترین قیمت خرید</span> 
+                            </h6>
+                        
+                    </li>
+                </ul>
+
+                <div id="toolbarReport"  style="display: none"></div>
+                <input style="display: none" id="toolbarReportValue" />
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-5">جدول کل  خرید و فروش</h4>
+
+                <div style="display: inline-flex; padding-right: 0px !important; padding-left: 0px !important; overflow-x: auto; white-space: nowrap; width: 100%; height: 405px;">
+                    <div class="k-rtl " id="gridSale"></div>
+                    <div class="k-rtl " id="gridBuy"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-5">نمودار خرید و فروش براساس جدول  فوق</h4>
+                <div id="chartLineLine"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-5">نمودار  ماهانه خرید و فروش</h4>
+                <div id="chartLinecolumn"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-5">نمودار حجم خرید و فروش در ماه جاری</h4>
+                <div id="chartArea"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $('#h4Buy').hide();
+    $('#h4Sale').show();
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        //var time = new Date(value).toLocaleTimeString('fa-IR');
+        return   data
+    }
+    function convertDate(value) {
+        var date = value.toLocaleString('en').toString().split("/");
+        var year = date[0].toString();
+        switch (date[1]) {
+            case "۱":
+                return "فروردین"+year;
+            case "۲":
+                return "اردیبهشت" + year;
+            case "۳":
+                return "خرداد" + year;
+            case "۴":
+                return "تیر" + year;
+            case "۵":
+                return "مرداد" + year;
+            case "۶":
+                return "شهریور" + year;
+            case "۷":
+                return "مهر" + year;
+            case "۸":
+                return "آبان" + year;
+            case "۹":
+                return "آذر" + year;
+            case "۱۰":
+                return "دی" + year;
+            case "۱۱":
+                return "بهمن" + year;
+            case "۱۲":
+                return "اسفند" + year;
+
+        default:
+        }
+    }
+    function labelFunction(e) {
+        
+        var year=e.dataItem.__proto__.dateYear;
+        var month = e.dataItem.__proto__.dateMonth;
+        var data = new Date(year, month-1).toLocaleDateString('fa-IR');
+        var result = convertDate(data);
+        debugger;
+        return result;
+    }
+    $(function ($) {
+        chartLinecolumn();
+        chartLineLine();
+        chartArea();
+        gridBuySale();
+        $("#toolbarReport").kendoToolBar({
+            items: [
+                { type: "button", id: "sales", text: "فروش ارزی" },
+                { type: "button", id: "toolbarRefresh", icon: "refresh", text: " بارگیری مجدد " },
+                { type: "button", id: "buys", text: "خرید ارزی" }
+            ],
+            click: function (e) {
+                $('#toolbarReportValue').val(e.id);
+                if (e.id == "toolbarRefresh") {
+                    window.location.reload();
+                }
+            }
+        });
+
+        function chartLinecolumn() {
+            $.ajax({
+                url: "/api/ApiVencoin/GetReportColumnChart",
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function(response) {
+                    $("#chartLinecolumn").kendoChart({
+                        legend: {
+                            position: "top"
+                        },
+                        seriesDefaults: {
+                            type: "column"
+                        },
+                        series: [{
+                            field: "totalVolume",
+                            categoryField: "dateMonth",
+                            name: "فروش",
+                            data: response.data.sales
+                        }, {
+                            field: "totalVolume",
+                            categoryField: "dateMonth",
+                            name: "خرید",
+                            data: response.data.buys
+                        }],
+                        valueAxis: {
+                            labels: {
+                                format: "{0}"
+                            },
+                            line: {
+                                visible: false
+                            },
+                            axisCrossingValue: 0
+                        },
+                        categoryAxis: {
+                            line: {
+                                visible: false
+                            },
+                            labels: {       
+                                template: labelFunction
+                            }
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}",
+                            template: "حجم #= series.name #: #= value #"
+                        }
+                    });
+                }
+            });
+        }
+
+        function chartLineLine() {
+
+            $.ajax({
+                url: "/api/ApiVencoin/GetReportLineChart",
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function (response) {
+
+                    $("#chartLineLine").kendoChart({
+                        legend: {
+                            position: "top"
+                        },
+                        seriesDefaults: {
+                            type: "line"
+                        },
+                        //series: [{
+                        //    name: "خرید",
+                        //    data: [3.907, 7.943, 7.848, 9.284, 9.263, 9.801, 3.890, 8.238, 9.552, 6.855], dashType: "dot"
+                        //}, {
+                        //    name: "فروش",
+                        //    data: [4.743, 7.295, 7.175, 6.376, 8.153, 8.535, 5.247, -7.832, 4.3, 4.3], dashType: "dot"
+                        //}],
+                        series: [{
+                            field: "totalVolume",
+                            categoryField: "price",
+                            name: "فروش",
+                            data: response.data.sales
+                        }, {
+                            field: "totalVolume",
+                            categoryField: "price",
+                            name: "خرید",
+                            data: response.data.buys
+                        }],
+                        valueAxis: {
+                            labels: {
+                                format: "{0}"
+                            },
+                            line: {
+                                visible: false
+                            },
+                            axisCrossingValue: 0
+                        },
+                        categoryAxis: {
+                            line: {
+                                visible: false
+                            },
+                            labels: {
+                                template: "مبلغ: #: value #"
+                            }
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}",
+                            template: "حجم #= series.name #: #= value #"
+                        }
+                    });
+                }
+            })
+        }
+
+        function chartArea() {
+            $.ajax({
+                url: "/api/ApiVencoin/GetReporAreaChart",
+                headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+                type: 'Get',
+                success: function (response) {
+                    $("#chartArea").kendoChart({
+                        legend: {
+                            position: "bottom"
+                        },
+                        seriesDefaults: {
+                            type: "area",
+                            area: {
+                                line: {
+                                    style: "smooth"
+                                }
+                            }
+                        },
+                        //series: [{
+                        //    name: "خرید",
+                        //    data: [3.907, 7.943, 7.848, 9.284, 9.263, 9.801, 3.890, 8.238, 9.552, 6.855]
+                        //}, {
+                        //    name: "فروش",
+                        //    data: [1.988, 2.733, 3.994, 3.464, 4.001, 3.939, 1.333, -2.245, 4.339, 2.727]
+                        //}],
+                        series: [{
+                            field: "totalVolume",
+                            categoryField: "registerDate",
+                            name: "فروش",
+                            data: response.data.sales
+                        }, {
+                            field: "totalVolume",
+                            categoryField: "registerDate",
+                            name: "خرید",
+                            data: response.data.buys
+                        }],
+                        valueAxis: {
+                            labels: {
+                                format: "{0}"
+                            },
+                            line: {
+                                visible: false
+                            },
+                            axisCrossingValue: -10
+                        },
+                        categoryAxis: {
+                            majorGridLines: {
+                                visible: false
+                            },
+                            labels: {
+                                rotation: "auto",
+                                template: "تاریخ: #:templateFunction(value)#"
+                            }
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}",
+                            template: "حجم #= series.name #: #= value #"
+                        }
+                    });
+                }
+            })
+        }
+
+        function gridBuySale(parameters) {
+            $('#gridSale').kendoGrid({
+                toolbar: [
+                    { template: "<div>جدول فروش</div>" }
+                ],
+                dataSource: {
+                    type: (function () {
+                        if (kendo.data.transports["aspnetmvc-ajax"]) {
+                            return "aspnetmvc-ajax"
+                        } else {
+                            throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                        }
+                    }),
+                    transport: {
+                        read: {
+                            url: "/api/ApiVencoin/GetReportVencoinSaleGrid",
+                            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPage: true,
+                    schema: {
+                        data: "data.reverse()",
+                        total: "total"
+                    },
+                    serverFiltering: true,
+                    serverSorting: true,
+                    "filter": []
+                },
+                height: 400,
+                pageable: {
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [{
+                    field: "totalClient",
+                    title: " تعدادکاربر فروشنده",
+                    width: 100
+                }, {
+                    field: "totalVolume",
+                    title: "حجم فروش",
+                    width: 150
+                }, {
+                    field: "price",
+                    title: "مبلغ",
+                    width: 150
+                }],
+            });
+
+            $('#gridBuy').kendoGrid({
+                toolbar: [
+                    { template: "<div>جدول خرید</div>" }
+                ],
+                dataSource: {
+                    type: (function () {
+                        if (kendo.data.transports["aspnetmvc-ajax"]) {
+                            return "aspnetmvc-ajax"
+                        } else {
+                            throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                        }
+                    }),
+                    transport: {
+                        read: {
+                            url: "/api/ApiVencoin/GetReportVencoinBuyGrid",
+                            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPage: true,
+                    schema: {
+                        data: "data.reverse()",
+                        total: "total"
+                    },
+                    serverFiltering: true,
+                    serverSorting: true,
+                    "filter": []
+                },
+                height: 400,
+                pageable: {
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [{
+                    field: "totalClient",
+                    title: " تعدادکاربر خریدار",
+                    width: 100
+                }, {
+                    field: "totalVolume",
+                    title: "حجم خرید",
+                    width: 150
+                }, {
+                    field: "price",
+                    title: "مبلغ",
+                    width: 150
+                }],
+            });
+        }
+    });
+    function parasDateTime(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return  time +' '+ data
+    }
+    $.ajax({
+        url: '/api/ApiVencoin/GetReportTicker',
+        headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+        type: 'Get',
+        success: function (response) {
+            console.log(response);
+            if (response.isSuccess) {
+                var data = response.data;
+                $('#lastTransactionTime').html(parasDateTime(data.lastTransactionTime));
+                $('#minSalePrice').html(funThousandsSeparator(data.minSalePrice.toString()));
+                $('#maxSalePrice').html(funThousandsSeparator(data.maxSalePrice.toString()));
+                $('#maxBuyPrice').html(funThousandsSeparator(data.maxBuyPrice.toString()));
+                $('#minBuyPrice').html(funThousandsSeparator(data.minBuyPrice.toString()));
+            }
+            else {
+                gritterNotification('error', 'خطا', response.message);
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr);
+            gritterNotification('error', 'خطا', 'خطایی درسیستم به وجود امده است');
+        }
+    });
+</script>

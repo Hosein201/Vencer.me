@@ -1,0 +1,137 @@
+﻿@using Common.Utilities
+@using WebFramework.UserIdentityExtension
+<!--**********************************
+Sidebar start
+***********************************-->
+@{
+    var role = User.Identity.GetRoleOfUser();
+}
+<div class="nk-sidebar">
+    <div class="nk-nav-scroll">
+        <ul class="metismenu" id="menu">
+            <li class="nav-label"><a asp-controller="Home" asp-action="Index">داشبورد</a></li>
+            <li class="nav-label">مدیریت  صندوق ارزی و پولی</li>
+            <li class="mega-menu mega-menu-lg">
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="mdi mdi-view-dashboard"></i><span class="nav-text">مدیریت صندوق ارزی و پولی</span><span class="badge bg-dpink text-white nav-badge"></span>
+                </a>
+                <ul aria-expanded="false">
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">کیف پول</a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a asp-controller="Payment" asp-action="AddPayment">افزایش اعتبار</a>
+                                <a asp-controller="Payment" asp-action="ReportPayments">گزارش تراکنش ها</a>
+                                <a asp-controller="Payment" asp-action="TransactionPayment">انتقال اعتبار مالی</a>
+                                <a asp-action="Exchange" asp-controller="Ticketing">درخواست واریز به حساب</a>
+                                <a asp-controller="Ticketing" asp-action="SupportExchangesUser">مشاهده وضعیت درخواست </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false"> صندوق ارزِی(Vencoin)</a>
+                        <ul aria-expanded="false">
+                            <li>
+
+                                <a asp-controller="Vencoin" asp-action="BuyOrSalesVencoin">بازار ارز دیجیتالی</a>
+                                <a asp-controller="Vencoin" asp-action="ReportVencoin">گزارش های ارزی دیجیتالی</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+           @if (role == VencerPermission.Admin.ToDisplay())
+            {
+
+                <li class="nav-label">مدیریت سیستم</li>
+                <li>
+                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="mdi mdi-book-open-page-variant"></i><span class="nav-text"> مدیریت سیستم</span> <span class="badge badge-info nav-badge"></span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">اعتبار</a>
+                            <ul aria-expanded="false">
+                                <li>
+                                    <a asp-controller="Payment" asp-action="ReportPaymentsUsers">گزارش تراکنش ها کاربران</a>
+
+                                    <a asp-controller="Payment" asp-action="DiscountPayment">تخصیص اعتبار هدیه</a>
+
+                                    <a asp-controller="Ticketing" asp-action="SupportExchanges">درخواست های واریز</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">مدیریت ارز دیجیتال</a>
+                            <ul aria-expanded="false">
+                                <li>
+                                    <a asp-controller="Vencoin" asp-action="DetailVencoinUsers">ارزدیجیتالی کاربران</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">دسترسی ها</a>
+                            <ul aria-expanded="false">
+                                <li>
+                                    <a asp-controller="Permition" asp-action="ManegmentUsers">دسترسی کاربران</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">کاربران</a>
+                            <ul aria-expanded="false">
+                                <li>
+                                    <a asp-controller="User" asp-action="Users">لیست کاربران سیستم</a>
+
+                                    <a asp-controller="User" asp-action="RegsiterInPanel">ایجاد کاربر جدید</a>
+                                </li>
+                            </ul>
+                        </li>  
+                        <li>
+                            <a class="has-arrow" href="javascript:void()" aria-expanded="false">مدیریت فروشگاه ها</a>
+                            <ul aria-expanded="false">
+                                <li>
+                                    <a asp-controller="Shop" asp-action="ShopUserForAdmin">فروشگاه های کاربران</a>
+                                </li>
+                            </ul>
+                        </li>   
+            
+                    </ul>
+                </li>
+            }
+
+            <li class="nav-label">کسب وکار</li>
+            <li class="mega-menu mega-menu-sm">
+                <a class="has-arrow" href="javascript:void()"
+                   aria-expanded="false">
+                    <i class="mdi mdi-page-layout-body"></i><span class="nav-text">کسب و کار</span><span class="badge badge-success nav-badge"></span>
+                </a>
+                <ul aria-expanded="false">
+                    <li>
+                        <a asp-action="CreateBusiness" asp-controller="Business">ایجاد کسب وکار جدید</a>
+                        <a asp-action="BusinessList" asp-controller="Business">مشاهده لیست کسب کار ها کاربر</a>
+                        <a asp-action="BusinessLists" asp-controller="Business">  کسب و کار های فعال </a>
+                    </li>
+                </ul>
+           </li>  
+           
+           <li class="nav-label" style="display: none">فروشگاه</li>
+            <li class="mega-menu mega-menu-sm" style="display: none">
+                <a class="has-arrow" href="javascript:void()"
+                   aria-expanded="false">
+                    <i class="mdi mdi-page-layout-body"></i><span class="nav-text">فروشگاه</span><span class="badge badge-success nav-badge"></span>
+                </a>
+                <ul aria-expanded="false">
+                    <li>
+                        <a asp-action="Products" asp-controller="Shop">محصولات</a>
+                        <a asp-action="CreateProducts" asp-controller="Shop">درج محصولات</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--**********************************
+    Sidebar end
+***********************************-->

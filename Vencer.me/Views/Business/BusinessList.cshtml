@@ -1,0 +1,80 @@
+﻿@model ListBusinessDto;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>لیست کسب وکار</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+    <div class="card button-card">
+        <div class="card-body">
+        <div class="col-12">
+            <div class="row" id="parentList">
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+<script>
+      getListBusiness();
+
+    function createHtml(businessUrl, description, nameBusiness, pathLogoMini) {
+        debugger;
+        var htmlList ='<div class="col-lg-4">'+
+                      '  <div class="card">'+
+                            ' <img class="img-fluid card-img-top" src="/imagesUsers/' + pathLogoMini+'" alt="">'+
+                      '          <div class="card-body">'+
+                      '              <h5 class="card-title">' + nameBusiness+'</h5>'+
+                      '              <p class="card-text">' + description+'</p>'+
+                      ' <a onclick="viewBusiness(this)" name="' + businessUrl +'" class="btn btn-primary btn-card my-4" style="color: white;">مشاهده</a>' +
+                      ' <a  onclick="manageBusiness(this)" name="' + businessUrl +'"  class="btn btn-success btn-card my-4" style="color: white;">ویرایش</a>' +
+                         '          </div>' +
+                         '          </div>' +
+                         '      </div>';
+        $('#parentList').append(htmlList);
+    }
+
+    function getListBusiness() {
+        $.ajax({
+            url: '/api/ApiBusiness/GetListBusinessUser',
+            headers: { "Authorization": 'Bearer ' + getCookie('Bearer') },
+            type: 'Get',
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+
+                    if (response.data.length==0) {
+                        gritterNotification('info', 'پیام', 'هیچ کسب کاری تا کنون ثبت نکردید')
+                    } else {
+                        for (var i = 0; i < response.data.length; i++) {
+                            debugger;
+                            createHtml(response.data[i].businessUrl, response.data[i].description, response.data[i].nameBusiness, response.data[i].pathLogoMini);
+                        }
+                    }
+                }
+                else {
+                    gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داده است')
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                gritterNotification('error', 'خطا', 'خطایی در سیستم رخ داده است')
+            }
+        });
+    }
+
+    function viewBusiness(e) {
+        var value = e.name;
+        window.location = '/' + value + '';
+    }
+
+    function manageBusiness(e) {
+        var value = e.name;
+
+        window.location = '/EditBusiness/' + value + '';
+    }
+</script>

@@ -1,0 +1,16 @@
+﻿@model UserRegsiterDto;
+
+<input asp-for="UserName" type="text" placeholder="نام کاربری " style="text-align:right"/>
+<span asp-validation-for="UserName" class="text-danger"></span>
+
+<input asp-for="Email" type="text" placeholder=" ایمیل" style="text-align:right" />
+<span asp-validation-for="Email" class="text-danger"></span>
+
+
+<input asp-for="Password" type="text" placeholder=" رمز عبور" style="text-align:right" />
+<span asp-validation-for="Password" class="text-danger"></span>
+
+
+<input asp-for="Mobile" type="text"placeholder=" موبایل " style="text-align:right" />
+<span asp-validation-for="Mobile" class="text-danger"></span>
+

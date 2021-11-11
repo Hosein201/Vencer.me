@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+}
+@model UserLogin;
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<link href="~/assets/plugins/toastr/css/toastr.min.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+<link href="~/account/css/login.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/assets/plugins/toastr/js/toastr.js"></script>
+<script src="~/js/globalFunction.js"></script>
+
+
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form id="formRegsiter">
+            <h4>عضویت در سایت</h4>
+            <partial name="_PartialRegsiter" />
+            <button type="button" id="btnFormRegsiter">عضویت</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form id="loginForm">
+            <h3>ورود به سایت</h3>
+            <div class="social-container" style="display:none">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+            <input asp-for="UserName" id="UserNameLogin" type="text" placeholder="نام کاربری" style="text-align:right"/>
+            <span asp-validation-for="UserName"  class="text-danger"></span>
+            <input asp-for="Password" type="password" id="PasswordLogin" placeholder="رمزعبور" style="text-align:right"/>
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <a asp-controller="Account" asp-action="ForgetPassword">رمز عبور خود را فراموش کردید؟</a>
+            <button type="button" id="btnFormLogin">ورود</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>بفرمایید!</h1>
+                <p style="direction: rtl;">لطفا با نام کاربری خود وارد شوید!</p>
+                <button class="ghost" id="signIn">ورود</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>سلام دوست عزیز!</h1>
+                <p style="direction: rtl;">ثبت نام در سایت Vencer.me گامی نوین در جهت کسب کار های آینده...</p>
+                <button class="ghost" id="signUp">ثبت نام</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    disabledBtn('btnFormLogin', false)
+    $('#signUp').click(function () {
+        $('#container').addClass("right-panel-active");
+    })
+    $('#signIn').click(function () {
+        $('#container').removeClass("right-panel-active");
+    });
+
+    $('#btnFormLogin').click(function () {
+        debugger;
+        var loginForm = $('#loginForm').valid();
+        if (loginForm) {
+            disabledBtn('btnFormLogin', true);
+            $.ajax({
+                url: '/api/ApiAccount/Login',
+                type: 'Post',
+                data: {
+                    UserName: $('#UserNameLogin').val(),
+                    Password: $('#PasswordLogin').val(),
+                },
+                success: function (response) {
+                    console.log(response);
+                    debugger;
+                    if (response.isSuccess == undefined) {
+                        window.location.href = "/Home/ConntAccess"
+                    }
+                    else if (response.isSuccess) {
+                        gritterNotification('success', 'موفق', response.message);
+
+                        window.location.href = "/Home/Index"
+                    }
+                    else if (!response.isSuccess){
+                        disabledBtn('btnRegsiterForm', false)
+                        gritterNotification('error', 'خطا', response.message);
+                    }
+                },
+                error: function (xhr) {
+                    disabledBtn('btnFormLogin', false)
+                    console.log(xhr);
+                    gritterNotification('error', 'خطا', JSON.parse(xhr.responseJSON.Data).Exception);
+
+                }
+            });
+        } else {
+            $(".field-validation-error").show();
+        }
+
+    })
+
+    $('#btnFormRegsiter').click(function () {
+        var formRegsiter = $('#formRegsiter').valid();
+        if (formRegsiter) {
+            disabledBtn('btnFormRegsiter', true);
+            $.ajax({
+                url: '/api/ApiAccount/Regsiter',
+                type: 'Post',
+                data: {
+                    UserName: $('#UserName').val(),
+                    Email: $('#Email').val(),
+                    Password: $('#Password').val(),
+                    Mobile: $('#Mobile').val()
+                },
+                success: function (response) {
+                    debugger
+                    console.log(response);
+                    if (response.isSuccess) {
+                        gritterNotification('succhess', 'موفق', response.message);
+                        window.location.href = '/Home/Index';
+                    }
+                    else {
+                        disabledBtn('btnFormRegsiter', false);
+                        gritterNotification('error', 'خطا', response.message);
+
+                    }
+                },
+                error: function (xhr) {
+                    debugger
+                    disabledBtn('btnFormRegsiter', false);
+                    console.log(xhr);
+                    gritterNotification('error', 'ناموفق', xhr.responseJSON.Message);
+                }
+            });
+        } else {
+            $(".field-validation-error").show();
+        }
+
+    })
+</script>

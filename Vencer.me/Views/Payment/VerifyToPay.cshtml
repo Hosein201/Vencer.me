@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .verify {
+        text-align: right;
+        margin: 0 auto;
+        font-size: 30px;
+        font-weight: 500;
+    }
+</style>
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>ثبت عملیات  پرداخت</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-5 verify">
+        <div style="display:none" id="SuccessPayment">
+            <blockquote class="card-blockquote">
+                <p class="f-s-14">پرداخت موفقیت آمیز بود در حال  ثبت اطلاعات شما هستیم لطفا صبر کنید... </p>
+                <footer class="f-s-12">
+                    سایت vencer میزبان کسب کار های آینده
+                </footer>
+            </blockquote>
+        </div>
+
+        <div style="display:none" id="CanselPayment">
+            <blockquote class="card-blockquote">
+                <p class="f-s-14">پرداخت موفقبت آمیز نبود لطفا مجدد تلاش فرمایید</p>
+                <a style="display:inherit" asp-action="AddPayment" asp-controller="Payment" class="btn btn-success  p-l-30 p-r-30 f-w-400">‍بازگشت به پرداخت</a>
+            </blockquote>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var href = window.location.href.split('&')[1].split('=')[1];
+    if (href == "NOK") {
+        $.ajax({
+            url: "/api/ApiAccount/DeactivateUser",
+            type: 'Get',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            success: function (response) {
+                window.location.href = "/Home/Logout"
+            },
+            error: function (xhr) {
+                window.location.href = "/Home/Logout"
+            }
+        });
+    }
+    else {
+        debugger;
+        $('#CanselPayment').hide();
+        $('#SuccessPayment').show();
+        $.ajax({
+            url: '/api/ApiPayment/VerifyToPay',
+            type: 'Get',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            success: function (response) {
+                ;
+                console.log(response);
+                if (response.isSuccess) {
+                    window.location.href = "/Payment/ReportPayments"
+                }
+                else {
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+    }
+</script>

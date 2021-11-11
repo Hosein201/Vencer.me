@@ -1,0 +1,168 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .customeClass {
+        text-align: right;
+        float: right;
+    }
+
+    .customeBtn {
+        margin-top: 43px;
+        float: right;
+    }
+</style>
+<div class="row page-titles">
+    <div class="col p-md-0">
+        <h4>مدیریت دسترسی های کاربران</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card button-card">
+            <div class="card-body">
+                <div style="display: block" id="Permitions"></div>
+            </div>
+        </div>
+        <div class="card button-card">
+            <div class="card-body">
+                <div id="gridPermitionUsers" class="k-rtl">
+
+                </div>
+            </div>
+        </div>
+        <input id="textkendoDropDownList" style="display: none"/>
+    </div>
+</div>
+
+<script>
+    $(function ($) {
+        gridPermitionUsers('Customer');
+        var dataSource = [{ 'name': 'Admin', 'text': 'مدیر سایت' }, { 'name': 'AllUser', 'text': 'کاربر عادی' },
+        { 'name': 'MasterBusiness', 'text': 'مدیر کسب وکار' }, { 'name': 'Customer', 'text': 'مشتری' }, { 'name': 'Employe', 'text': 'کارمندها' }];
+        $("#Permitions").kendoDropDownList({
+            optionLabel: 'انتخاب کنید',
+            dataTextField: "text",
+            dataValueField: "name",
+            dataSource: {
+                data: dataSource
+            },
+            select: function (e) {
+                gridPermitionUsers(e.dataItem.name);
+                e.sender.close();
+            }
+        });
+        function gridPermitionUsers(value) {
+            $("#gridPermitionUsers").kendoGrid({
+                dataSource: {
+                    type: (function () {
+                        if (kendo.data.transports["aspnetmvc-ajax"]) {
+                            return "aspnetmvc-ajax"
+                        } else {
+                            throw new Error('The kendo.aspnetmvc.min.js script is not included.')
+                        }
+                    }),
+                    transport: {
+                        read: {
+                            url: "/api/ApiPermition/GetUserOfPermition?roleName=" + value + "",
+                            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPage: true,
+                    schema: {
+                        data: "data",
+                        total: "total"
+                    },
+                    serverFiltering: true,
+                    serverSorting: true,
+                    "filter": []
+                },
+                height: 550,
+                groupable: true,
+                sortable: true,
+                pageable: {
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [
+                    { field: "Row", title: "ردیف", width: "60px" },
+                    { field: "fullName", title: "نام خانوادگی", width: "100px" },
+                    { field: "userName", title: "نام کاربری", width: "100px" },
+                    { field: "email", title: "ایمیل", width: "200px" },
+                    { field: "phoneNumber", title: "تلفن همراه", width: "100px" },
+                    {
+                        template: "#: templateFunction(data.registerDate ) # ",
+                        field: "registerDate",
+                        title: "تاریخ عضویت",
+                        width: 150
+                    }, {
+                        field: "",
+                        title: "عملیات",
+                        width: 200,
+                        template:
+                            '<div style="display: block" class="dropDownTemplate"></div>' +
+                            '<button onclick="btnDone(this)"  name=#:data.userName#  style="margin-right: 10px;" class="btn btn-info btn-ft btn-sm btn-rounded">تایید</button>'
+                    }
+                ],
+                dataBinding: function (a) {
+                    var row = 0;
+                    a.items.forEach(function (value) {
+                        row++;
+                        value.Row = ((a.sender.dataSource.page() - 1) * a.sender.dataSource.pageSize()) + row
+                    });
+                },
+                dataBound: function (e) {
+                    var items = e.sender.items();
+                    items.each(function (e) {
+                        var ddt = $(this).find('.dropDownTemplate');
+                        $(ddt).kendoDropDownList({
+                            optionLabel: 'انتخاب کنید',
+                            dataSource: dataSource,
+                            dataTextField: "text",
+                            dataValueField: "name",
+                            select: function (e) {
+                                $('#textkendoDropDownList').val(e.dataItem.name);
+                                e.sender.close();
+                            }
+                        });
+                    });
+                }
+            });
+
+        }
+    });
+    function templateFunction(value) {
+        value.toString();
+        var data = new Date(value).toLocaleDateString('fa-IR');
+        var time = new Date(value).toLocaleTimeString('fa-IR');
+        return time + ' ' + data
+    }
+    function btnDone(e) {
+        $(e).attr('disabled', true); 
+        $.ajax({
+            url: '/api/ApiPermition/AddUserToRole',
+            type: 'Post',
+            headers: { 'Authorization': 'Bearer ' + getCookie('Bearer') },
+            data: {
+                UserName: e.name,
+                RoleName: $('#textkendoDropDownList').val(),
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    gritterNotification('success', 'موفق', response.message);
+                }
+                else {
+                    $(e).attr('disabled', false); 
+                    gritterNotification('error', 'خطا', response.message);
+                }
+            },
+            error: function (xhr) {
+                $(e).attr('disabled', false);
+                console.log(xhr);
+                gritterNotification('error', xhr.responseJSON.Message);
+            }
+        });
+    }
+</script>
